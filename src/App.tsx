@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import fond from './3_Mole.jpg';
 import './styles/App.css';
+var FA = require('react-fontawesome')
+import logo from './logo.png';
+import account from './account.png';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+        <header className="header">
+            <ul className="headerFlex">
+              <li className="logoContainer">
+              <img className="logo" src={logo} />
+    
+              </li>
+              <li>
+              <img className="logo" src={account} />
+              </li>
+            </ul>   
+
         </header>
+
+          <div className="backgroundImageContainer">
+            <img src={fond} className="backgroundImage" alt="fond" />
+          </div>
+
       </div>
     );
   }
