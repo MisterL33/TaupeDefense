@@ -20,6 +20,12 @@ body {
   height: 100%;
 }
 
+.loginContainer
+{
+  margin-top: 10%;
+  height: 100%;
+}
+
 .backgroundImageContainer {
   width: 100%;
   position: relative;
