@@ -19,6 +19,7 @@ class Home extends React.Component {
 
   componentDidMount() {
     Api.getAllUsers().then((res: object) => console.log(res))
+    Api.login('lolo2@gmail.com', 'lolo2').then((res: any) => console.log(res))
   }
 
   render() {
