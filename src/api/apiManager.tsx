@@ -3,7 +3,6 @@ import React, { Component } from "react";
 interface IApi {
     getAllUsers: any
     login: any
-    email: any
 }
 
 const Api: IApi =
@@ -19,7 +18,6 @@ const Api: IApi =
     login: (mail: string, mdp: string) => {
 
         const user = { user: { "email": mail, "password": mdp } }
-        console.log(user);
         fetch('http://localhost:8000/api/users/login', {
             method: 'POST',
             headers: new Headers(),
