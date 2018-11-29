@@ -19,6 +19,9 @@ body {
 .App {
   height: 100%;
 }
+.gameLink{
+  z-index:10;
+}
 
 .loginContainer
 {

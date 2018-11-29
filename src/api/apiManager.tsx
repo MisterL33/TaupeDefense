@@ -15,18 +15,17 @@ const Api: IApi =
             })
     },
 
-    login: (mail: string, mdp: string) => {
-
+    async login(mail: string, mdp: string) {
         const user = { user: { "email": mail, "password": mdp } }
-        fetch('http://localhost:8000/api/users/login', {
+        const res = await fetch('http://localhost:8000/api/users/login', {
             method: 'POST',
-            headers: new Headers(),
-            body: JSON.stringify({ email: mail, password: mdp })
-        }).then((res) => res.json())
-            .then((data) => console.log(data))
-            .catch((err) => console.log(err))
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(user)
+        })
+        return res.json()
     }
-
 }
 
 

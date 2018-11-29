@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import "../styles/App.css";
 var FA = require("react-fontawesome");
 import { StateConsumer, IContext } from '../Context/Provider';
@@ -8,25 +8,43 @@ import Api from '../api/apiManager';
 interface ILogin {
   mail: string
   mdp: string
+  logged: boolean
 }
 
 class Home extends React.Component {
 
   state: ILogin = {
     mail: '',
-    mdp: ''
+    mdp: '',
+    logged: false
   }
 
   componentDidMount() {
     //Api.getAllUsers().then((res: object) => console.log(res))
-    Api.login('lolo2@gmail.com', 'lolo2').then((res: any) => console.log(res))
+
+  }
+
+  logUser = () => {
+    Api.login(this.state.mail, this.state.mdp)
+      .then((res: any) => {
+        if (res.user != undefined) {
+          this.setState({ logged: true })
+        }
+        else {
+          alert('mauvais identifiants')
+        }
+      })
   }
 
   render() {
 
+    if (this.state.logged == true) {
+      return <Redirect to="/game" />
+    }
+
     return (
-      <div className="backgroundImageContainer">
-        <Link to="/game">
+      <div className="backgroundImageContainer" >
+        <Link className="gameLink" to="/game">
           <button type="button">Click Me!</button>
         </Link>
         {/* 
@@ -41,13 +59,13 @@ class Home extends React.Component {
           )}
         </StateConsumer>
       */}
-        <div className="loginContainer">
-          <input placeholder="Email" onChange={(mail) => this.setState({ mail: mail })} id="mail" value={this.state.mail} />
-          <input placeholder="Mot de passe" onChange={(mdp) => this.setState({ mdp: mdp })} id="mdp" value={this.state.mdp} />
-          <button> Connexion </button>
+        <div className="loginContainer" >
+          <input placeholder="Email" onChange={(mail) => this.setState({ mail: mail.target.value })} id="mail" value={this.state.mail} />
+          <input placeholder="Mot de passe" onChange={(mdp) => this.setState({ mdp: mdp.target.value })} id="mdp" value={this.state.mdp} />
+          <button onClick={this.logUser}> Connexion </button>
         </div>
         {/* Créer un composant de formulaire de connexion et l'importer ici */}
-      </div>
+      </div >
     );
   }
 
