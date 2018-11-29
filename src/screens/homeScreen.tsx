@@ -20,7 +20,6 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    //Api.getAllUsers().then((res: object) => console.log(res))
 
   }
 
@@ -44,9 +43,6 @@ class Home extends React.Component {
 
     return (
       <div className="backgroundImageContainer" >
-        <Link className="gameLink" to="/game">
-          <button type="button">Click Me!</button>
-        </Link>
         {/* 
         <StateConsumer>
           {({ state: { clients } }) => (

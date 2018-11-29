@@ -73,3 +73,83 @@ body {
 .routerContainer {
   height: 100%;
 }
+
+.containerPrincipal{
+  margin-top:113px;
+  height:100%;
+}
+
+.gameContainer{
+  height: 100%;
+  width: 60%;
+  margin: auto;
+}
+
+.taupeContainer{
+  height: 60%;
+  list-style: none;
+  top: 3%;
+  position: relative;
+  padding: unset;
+  border: 2px solid black;
+}
+
+.gameContainer div{
+  height: 100%;
+  text-align: center;
+      
+}
+
+
+.roomContainer
+{
+  height: 60%;
+  list-style: none;
+  top: 3%;
+  position: relative;
+  padding: unset;
+  border: 2px solid black;
+  background-color: antiquewhite;
+}
+
+.taupeContainer p {
+  text-align: center;
+}
+
+.rowTaupe{
+  height: 17%;
+}
+.taupeSorti{
+  height: 80px;
+}
+
+.taupeBoxContainer{
+  list-style: none;
+  display: flex;
+  padding: unset;
+}
+
+.taupeBoxContainer li {
+  display: block;
+  margin: 0 auto;
+}
+
+.ligneTaupe1 {
+  margin-top: 3%;
+}
+
+.btn-gradient {
+    margin: 5px;
+}
+
+.btn.cyan {
+  background-color: #7fccde;
+}
+
+.btn.small, 
+.btn-two.small, 
+.btn-gradient.small, 
+.btn-effect.small {
+  padding: 8px 18px;  
+  font-size: 14px;
+}
