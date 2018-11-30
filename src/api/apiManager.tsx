@@ -3,9 +3,10 @@ import React, { Component } from "react";
 interface IApi {
     getAllUsers: any
     login: any
+    subscribe: any
 }
 
-const Api: IApi =
+export const Api: IApi =
 {
     getAllUsers: () => {
         return fetch('http://localhost:8000/api/users/all')
@@ -18,6 +19,18 @@ const Api: IApi =
     async login(mail: string, mdp: string) {
         const user = { user: { "email": mail, "password": mdp } }
         const res = await fetch('http://localhost:8000/api/users/login', {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(user)
+        })
+        return res.json()
+    },
+    // username ?
+    async subscribe(mail: string, mdp: string) {
+        const user = { user: { "email": mail, "password": mdp } }
+        const res = await fetch('http://localhost:8000/api/users', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json'

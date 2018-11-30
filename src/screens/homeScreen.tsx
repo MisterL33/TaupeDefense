@@ -4,7 +4,7 @@ import "../styles/App.css";
 var FA = require("react-fontawesome");
 import { StateConsumer, IContext } from '../Context/Provider';
 import Api from '../api/apiManager';
-
+import { FormApp } from "../components/form"
 interface ILogin {
   mail: string
   mdp: string
@@ -37,7 +37,7 @@ class Home extends React.Component {
 
   render() {
 
-    if (this.state.logged == true) {
+    if (this.state.logged) {
       return <Redirect to="/game" />
     }
 
@@ -56,9 +56,8 @@ class Home extends React.Component {
         </StateConsumer>
       */}
         <div className="loginContainer" >
-          <input placeholder="Email" onChange={(mail) => this.setState({ mail: mail.target.value })} id="mail" value={this.state.mail} />
-          <input placeholder="Mot de passe" onChange={(mdp) => this.setState({ mdp: mdp.target.value })} id="mdp" value={this.state.mdp} />
-          <button onClick={this.logUser}> Connexion </button>
+
+          <FormApp />
         </div>
         {/* Créer un composant de formulaire de connexion et l'importer ici */}
       </div >
