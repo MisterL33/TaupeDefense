@@ -1,42 +1,51 @@
 import React, { Component } from "react";
-import { Api } from "../api/apiManager"
-let username: string = ""
-let password: string = ""
-export class LogApp extends React.Component<{}, { username: string, password: string }> {
+import { Api } from "../api/apiManager";
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            username: username,
-            password: password
-        };
+interface LoginSchema {
+    mail: string
+    mdp: string
+    logged: boolean
+}
 
-        this.handleChangeUserName = this.handleChangeUserName.bind(this);
-        this.handleChangePassword = this.handleChangePassword.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+export class LogApp extends React.Component {
+
+    state: LoginSchema = {
+        mail: '',
+        mdp: '',
+        logged: false
     }
 
-    handleChangeUserName(event: any) {
-        this.setState({ username: event.target.value });
+
+    handleChangeUserName = (event: any) => {
+        this.setState({ mail: event.target.value });
     }
-    handleChangePassword(event: any) {
-        this.setState({ password: event.target.value });
+    handleChangePassword = (event: any) => {
+        this.setState({ mdp: event.target.value });
     }
-    handleSubmit(event: any) {
-        //alert('A username was submitted: ' + this.state.username + "   Password " + this.state.password);
-        event.preventDefault();
-        Api.login(this.state.username, this.state.password)
+    handleSubmit = () => {
+        Api.login(this.state.mail, this.state.mdp).then((res: any) => {
+            if (res.user != undefined) {
+                this.setState({ logged: true })
+            }
+            else {
+                alert('mauvais identifiants')
+            }
+        })
     }
 
     render() {
+        if (this.state.logged === true) {
+            return <Redirect to="/game" />
+        }
         return (
-            <form onSubmit={this.handleSubmit}>
+            <div>
                 <label>
-                    <input type="text" placeholder="Email" value={this.state.username} onChange={this.handleChangeUserName} />
-                    <input type="password" placeholder="mdp" value={this.state.password} onChange={this.handleChangePassword} />
+                    <input type="text" placeholder="Email" value={this.state.mail} onChange={this.handleChangeUserName} />
+                    <input type="password" placeholder="mdp" value={this.state.mdp} onChange={this.handleChangePassword} />
                 </label>
-                <input type="submit" value="Submit" />
-            </form>
+                <button onClick={this.handleSubmit} />
+            </div>
         );
     }
 }
