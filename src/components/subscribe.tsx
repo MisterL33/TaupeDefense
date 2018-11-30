@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Api } from "../api/apiManager"
 let username: string = ""
 let password: string = ""
-export class FormApp extends React.Component<{}, { username: string, password: string }> {
+export class SubscribeApp extends React.Component<{}, { username: string, password: string }> {
 
     constructor(props: any) {
         super(props);

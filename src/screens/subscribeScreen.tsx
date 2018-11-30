@@ -4,7 +4,7 @@ import "../styles/App.css";
 var FA = require("react-fontawesome");
 import { StateConsumer, IContext } from '../Context/Provider';
 import Api from '../api/apiManager';
-import { FormApp } from "../components/form"
+import { SubscribeApp } from "../components/subscribe"
 const rgxEmail: RegExp = /\w{1,}\@\w*\.\w{2,3}/
 // matching 
 //(6 or more letters/numbers) + @ + whatever letters/numbers + "."+ 2-3 letters/numbers
@@ -36,14 +36,14 @@ class Subscribe extends React.Component {
 
     render() {
 
-        if (this.state.isValid === true) {
+        if (this.state.isValid) {
             return <Redirect to="/home" />
         }
 
         return (
             <div className="backgroundImageContainer" >
                 <div className="subscribeContainer" >
-                    <FormApp />
+                    <SubscribeApp />
                 </div>
                 {/* Créer un composant de formulaire de connexion et l'importer ici */}
             </div >

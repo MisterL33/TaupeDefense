@@ -4,7 +4,7 @@ import "../styles/App.css";
 var FA = require("react-fontawesome");
 import { StateConsumer, IContext } from '../Context/Provider';
 import Api from '../api/apiManager';
-import { FormApp } from "../components/form"
+import { LogApp } from "../components/logIn"
 interface ILogin {
   mail: string
   mdp: string
@@ -57,7 +57,7 @@ class Home extends React.Component {
       */}
         <div className="loginContainer" >
 
-          <FormApp />
+          <LogApp />
         </div>
         {/* Créer un composant de formulaire de connexion et l'importer ici */}
       </div >
