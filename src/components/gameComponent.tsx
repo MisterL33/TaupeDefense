@@ -12,10 +12,10 @@ class GameComponent extends Component {
 
     fillWithTaupe = () => {
 
-        let multiLi: any[] = [] // reçois 5 li qui vont servir de ligne pour chaque rangée de taupe
-        let multiCaseTaupe: any[] = [] // reçois 4 li qui vont servir de case pour chaque taupe
+        let multiLi: JSX.Element[] = [] // reçois 5 li qui vont servir de ligne pour chaque rangée de taupe
+        let multiCaseTaupe: JSX.Element[] = [] // reçois 3 li qui vont servir de case pour chaque taupe
 
-        for (let y = 1; y <= 4; y++) {
+        for (let y = 1; y <= 3; y++) {
             multiCaseTaupe.push(<li key={y}><img className="taupeSorti" src={taupe} alt="taupe" /></li>)
 
         }
@@ -28,10 +28,10 @@ class GameComponent extends Component {
 
     }
 
+
+
     handleUpdateRoom = (numberRoom: number) => {
         this.setState({ selectedRoom: numberRoom })
-
-
     }
 
     render() {

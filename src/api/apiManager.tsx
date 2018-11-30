@@ -1,21 +1,18 @@
 import React, { Component } from "react";
 
 interface IApi {
-    getAllUsers: any
-    login: any
+    getAllUsers(): Promise<object>
+    login(mail: string, mdp: string): Promise<object>
 }
 
 const Api: IApi =
 {
-    getAllUsers: () => {
-        return fetch('http://localhost:8000/api/users/all')
-            .then(response => response.json())
-            .then((data) => {
-                return data
-            })
+    async getAllUsers() {
+        const res = await fetch('http://localhost:8000/api/users/all')
+        return res.json()
     },
 
-    async login(mail: string, mdp: string) {
+    async login(mail, mdp) {
         const user = { user: { "email": mail, "password": mdp } }
         const res = await fetch('http://localhost:8000/api/users/login', {
             method: 'POST',

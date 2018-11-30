@@ -3,7 +3,7 @@ import "../styles/App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 var FA = require("react-fontawesome");
 import GameWindow from '../components/gameComponent'
-
+import ChatWindow from '../components/chatComponent'
 
 class Game extends Component {
 
@@ -11,9 +11,13 @@ class Game extends Component {
     return (
       <div className="backgroundImageContainer">
         <div className="containerPrincipal">
+          <div className="chatBox">
+            <ChatWindow />
+          </div>
           <div className="gameContainer">
             <GameWindow /> {/* Correspond à gameComponent.tsx et fais pop la fenetre de jeu */}
           </div>
+
         </div>
       </div>
     );

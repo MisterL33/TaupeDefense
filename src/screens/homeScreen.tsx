@@ -21,6 +21,7 @@ class Home extends React.Component {
 
   componentDidMount() {
 
+
   }
 
   logUser = () => {
@@ -62,6 +63,8 @@ class Home extends React.Component {
         </div>
         {/* Créer un composant de formulaire de connexion et l'importer ici */}
       </div >
+
+
     );
   }
 
