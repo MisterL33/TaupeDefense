@@ -24,7 +24,7 @@ export const Api: IApi =
         })
         return res.json()
     },
-    // username ?
+
     async subscribe(mail, mdp) {
         const user = { user: { "email": mail, "password": mdp } }
         const res = await fetch('http://localhost:8000/api/users', {

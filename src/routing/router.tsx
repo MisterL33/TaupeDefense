@@ -28,7 +28,6 @@ const AppRouter = () => (
       </nav>
 
       <Route path="/" exact component={Home} />
-      <Route path="/subscribe" exact component={Home} />
       <Route path="/game/" component={Game} />
     </div>
   </Router>
