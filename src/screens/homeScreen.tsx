@@ -5,6 +5,7 @@ var FA = require("react-fontawesome");
 import { StateConsumer, IContext } from '../Context/Provider';
 import Api from '../api/apiManager';
 import { LogApp } from "../components/logIn"
+import { SubscribeApp } from "../components/subscribe";
 interface ILogin {
   mail: string
   mdp: string
@@ -60,6 +61,8 @@ class Home extends React.Component {
 
           <LogApp />
         </div>
+
+        <SubscribeApp />
         {/* Créer un composant de formulaire de connexion et l'importer ici */}
       </div >
 

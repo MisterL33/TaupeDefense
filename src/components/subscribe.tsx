@@ -42,7 +42,7 @@ export class SubscribeApp extends React.Component<{}, ISubscribe> {
             <div>
                 <label>
                     <input type="text" placeholder="Email" value={this.state.mail} onChange={this.handleChangeMail} />
-                    <input type="mdp" placeholder="mdp" value={this.state.mdp} onChange={this.handleChangeMdp} />
+                    <input type="password" placeholder="mdp" value={this.state.mdp} onChange={this.handleChangeMdp} />
                 </label>
                 <input type="submit" onClick={this.handleSubmit} value="Submit" />
             </div >
