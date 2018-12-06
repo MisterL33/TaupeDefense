@@ -58,7 +58,6 @@ class Home extends React.Component {
         </StateConsumer>
       */}
         <div className="loginContainer" >
-
           <LogApp />
         </div>
 

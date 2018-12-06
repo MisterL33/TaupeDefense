@@ -3,7 +3,7 @@ import "../styles/App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 var FA = require("react-fontawesome");
 import taupe from "../pictures/account.png";
-
+import openSocket from 'socket.io-client';
 
 class GameComponent extends Component {
     state = {
@@ -28,10 +28,22 @@ class GameComponent extends Component {
 
     }
 
+    initSocket = () => {
+        var socket = openSocket('http://localhost:8000');
+        socket.on('coucou', function (data: any) {
+            console.log(data);
+            socket.emit('coucou', "coucou du front");
+        });
+    }
+
+    componentDidMount() {
+        this.initSocket()
+    }
 
 
-    handleUpdateRoom = (numberRoom: number) => {
-        this.setState({ selectedRoom: numberRoom })
+
+    handlePlayerReady = () => {
+
     }
 
     render() {
@@ -47,11 +59,9 @@ class GameComponent extends Component {
                         <ul className="roomContainer">
                             <div>
                                 <p> Bienvenue sur TaupeDefense </p>
-                                <p> Veuillez rejoindre une salle pour commencer a jouer : </p>
+                                <p> Veuillez appuyer sur jouer : </p>
                                 <div>
-                                    <button onClick={() => this.handleUpdateRoom(1)} className="btn-gradient cyan small">Salle 1</button>
-                                    <button onClick={() => this.handleUpdateRoom(2)} className="btn-gradient cyan small">Salle 2</button>
-                                    <button onClick={() => this.handleUpdateRoom(3)} className="btn-gradient cyan small">Salle 3</button>
+                                    <button onClick={() => this.handlePlayerReady()} className="btn-gradient cyan small">Salle 1</button>
                                 </div>
                             </div>
 
