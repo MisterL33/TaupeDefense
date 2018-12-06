@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../styles/App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 var FA = require("react-fontawesome");
-import taupe from "../pictures/account.png";
+import taupe from "../pictures/taupe.png";
 import openSocket from 'socket.io-client';
 
 class GameComponent extends Component {

@@ -6,7 +6,7 @@ import fond from "../pictures/3_Mole.jpg";
 import "../styles/App.css";
 var FA = require("react-fontawesome");
 import logo from "../pictures/logo.png";
-import account from "../pictures/account.png";
+import account from "../pictures/taupe.png";
 
 const AppRouter = () => (
   <Router>
