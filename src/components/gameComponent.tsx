@@ -7,7 +7,7 @@ import openSocket from 'socket.io-client';
 
 class GameComponent extends Component {
     state = {
-        selectedRoom: null
+        playerState: null
     }
 
     fillWithTaupe = () => {
@@ -28,28 +28,25 @@ class GameComponent extends Component {
 
     }
 
-    initSocket = () => {
-        var socket = openSocket('http://localhost:8000');
-        socket.on('coucou', function (data: any) {
-            console.log(data);
-            socket.emit('coucou', "coucou du front");
-        });
-    }
 
     componentDidMount() {
-        this.initSocket()
+
     }
-
-
 
     handlePlayerReady = () => {
+        let socket = openSocket('http://localhost:8000');
+        this.setState({ playerState: "awaitParty" }, () => {
+            console.log('here')
+            socket.emit('awaitParty', "Un joueur attends une party");
+        })
 
     }
+
 
     render() {
         return (
             <div>
-                {this.state.selectedRoom ?
+                {this.state.playerState == "inParty" ?
                     (
                         <ul className="taupeContainer">
                             {this.fillWithTaupe()}
