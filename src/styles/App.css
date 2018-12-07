@@ -76,7 +76,7 @@ body {
 
 .containerPrincipal{
   margin-top:113px;
-  height:100%;
+  height:90%;
 }
 
 .gameContainer{
@@ -90,26 +90,35 @@ body {
   list-style: none;
   top: 3%;
   position: relative;
-  padding: unset;
-  border: 2px solid black;
-}
-
-.gameContainer div{
-  height: 100%;
-  text-align: center;
-      
-}
-
-
-.roomContainer
-{
-  height: 60%;
+  padding: unset;;
   list-style: none;
   top: 3%;
   position: relative;
   padding: unset;
   border: 2px solid black;
-  background-color: antiquewhite;
+}
+
+.gameContainer > div{
+  height: 100%;
+  text-align: center;
+      
+}
+
+.gameContainer > div > div{
+  height: 100%;
+  text-align: center;
+      
+}
+
+.roomContainer
+{
+  height: 80%;
+  list-style: none;
+  top: 3%;
+  position: relative;
+  padding: unset;
+  border: 2px solid black;
+  background-color: #996633;
 }
 
 .taupeContainer p {

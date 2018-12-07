@@ -1,0 +1,31 @@
+    .board {
+        height: 80%;
+        list-style: none;
+        top: 3%;
+        position: relative;
+        padding: unset;
+        border: 2px solid black;
+        cursor:url('../pictures/petitMarteau.png') 80 70, auto;
+    }
+
+    .board:active {
+        cursor:url('../pictures/petitMarteau0.png') 80 70, auto;
+    }
+
+
+    .cell {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .cell--mole {
+        background: rgba(255, 0, 0, 0.2);
+    }
+
+    .cell--closed {
+        background: rgb(0, 255, 255);
+    }
+
+    .cell--mole-hit {
+        background: rgb(255, 0, 0);
+    }

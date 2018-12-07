@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Home from "../screens/homeScreen";
-import Game from "../screens/gameScreen";
+import Home from "../screens/HomeScreen";
+import Game from "../screens/GameScreen";
 import fond from "../pictures/3_Mole.jpg";
 import "../styles/App.css";
 var FA = require("react-fontawesome");

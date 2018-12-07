@@ -11,7 +11,6 @@ class App extends Component {
         <StateContainer>
           <AppRouter />
         </StateContainer>
-
       </div>
     );
   }

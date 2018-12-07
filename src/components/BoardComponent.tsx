@@ -7,10 +7,9 @@ import taupe from "../pictures/taupe.png";
 import trou from "../pictures/trou.png";
 import openSocket from 'socket.io-client';
 import RoomComponent from "./RoomComponent";
-import BoardComponent from "./BoardComponent";
 
 
-class GameComponent extends Component {
+class BoardComponent extends Component {
     state = {
         playerState: '',
         grid: [[0, 1, 0, 0], [0, 1, 0, 1], [0, 1, 1, 1], [0, 0, 0, 0]]
@@ -35,6 +34,21 @@ class GameComponent extends Component {
     }
 
 
+    componentDidMount() {
+
+    }
+
+    handlePlayerReady = () => {
+        let socket = openSocket('http://localhost:8000');
+        this.setState({ playerState: "awaitParty" }, () => {
+            socket.emit('awaitParty', "Un joueur attends une party");
+        })
+
+        socket.on('partyCreated', (data: any) => {
+            console.log(data)
+        });
+
+    }
 
     caseCalculator = () => {
 
@@ -60,22 +74,24 @@ class GameComponent extends Component {
 
     }
 
-    renderManager = (): JSX.Element => { //fonction gérant l'affichage des composants en fonction du playerState
-        switch (this.state.playerState) {
-            case 'ready': return <BoardComponent />;
-            case 'await': return <RoomComponent />;
-            default: return <RoomComponent />
-        }
-    }
-
 
     render() {
         return (
             <>
-                {this.renderManager()}
+                <div className="board">
+                    {this.state.grid.map((item, index) => {
+                        return (
+                            <>
+                                {this.caseCalculator()}
+                            </>
+
+                        )
+                    })}
+
+                </div>
             </>
         )
     }
 }
 
-export default GameComponent
+export default BoardComponent
