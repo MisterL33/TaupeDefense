@@ -1,4 +1,7 @@
 {
   "editor.formatOnSave": true,
-  "editor.formatOnPaste": true
+  "editor.formatOnPaste": true,
+  "tslint.alwaysShowRuleFailuresAsWarnings": true,
+  "tslint.configFile": "C:\\Users\\Martin\\Desktop\\taupe\\gitfront\\TaupeDefense\\tsconfig.json",
+  "tslint.jsEnable": true
 }
