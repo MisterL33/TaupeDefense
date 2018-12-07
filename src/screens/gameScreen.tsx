@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "../styles/App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-var FA = require("react-fontawesome");
-import GameWindow from '../components/gameComponent'
-import ChatWindow from '../components/chatComponent'
-import ScoreApp from "../components/scorePlayer"
+import GameWindow from "../components/gameComponent";
+import ChatWindow from "../components/chatComponent";
+import ScoreApp from "../components/scorePlayer";
+const FA = require("react-fontawesome");
+
 class Game extends Component {
 
   render() {

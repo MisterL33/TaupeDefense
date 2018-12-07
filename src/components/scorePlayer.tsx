@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { Api } from "../api/apiManager"
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import PlayerList from "./ScorePlayer/PlayerList"
@@ -34,20 +34,7 @@ export default class ScoreApp extends React.Component<{}, ScoreSchema> {
                     rank: 2,
                     img: "https://assets.classicfm.com/2009/04/george-frederick-handel-1233335898-editorial-long-form-0.jpg"
                 },
-                {
-                    name: "Samson",
-                    score: 0,
-                    isOn: true,
-                    rank: 3,
-                    img: ""
-                },
-                {
-                    name: "Canard",
-                    score: 0,
-                    isOn: true,
-                    rank: 4,
-                    img: ""
-                },
+
 
             ],
 

@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import "../styles/App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-var FA = require("react-fontawesome");
+const FA = require("react-fontawesome");
 
 
 class ChatComponent extends Component {
     state = {
 
-    }
+    };
 
 
 
@@ -21,8 +21,8 @@ class ChatComponent extends Component {
 
                 </div>
             </div>
-        )
+        );
     }
 }
 
-export default ChatComponent
+export default ChatComponent;
