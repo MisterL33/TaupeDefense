@@ -13,11 +13,12 @@ interface StateSchema {
 export interface ContextSchema {
     state: StateSchema;
     actions: {
-        handleSubmit: (mail: string, mdp: string) => void
+        login: (mail: string, mdp: string) => void,
+        checkUserLogged: () => boolean
     };
 }
 
-const StateContext = React.createContext<ContextSchema>({} as ContextSchema)
+export const StateContext = React.createContext<ContextSchema>({} as ContextSchema)
 
 class StateContainer extends Component<{}, StateSchema> {
     state: StateSchema = {
@@ -27,23 +28,34 @@ class StateContainer extends Component<{}, StateSchema> {
         }
     }
 
-    handleSubmit = (mail: any, mdp: any) => {
-        Api.login(mail, mdp).then((res: any) => {
-            if (res.user != undefined) {
-                this.setState({ player: { details: res.user, logged: true } }, () => {
-
+    login = async (mail: string, mdp: string) => {
+        const user = { user: { "email": mail, "password": mdp } }
+        let player = this.state.player
+        await fetch('http://localhost:8000/api/users/login', {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(user)
+        }).then((res) => res.json() // Transformation de la Promise en objet json
+            .then((data) => {
+                player.details = data.user
+                player.logged = true
+                this.setState({ player }, () => {
+                    localStorage.setItem('player', JSON.stringify(player));
                 })
-            }
-            else {
-                alert('mauvais identifiants')
-            }
-        })
+            }))
+
+        return this.state.player
     }
 
     checkUserLogged = () => {
-        Api.currentUser(this.state.player.details.token).then((res: any) => {
+        let userSession = localStorage.getItem('player')
+        if (userSession !== null) {
             return true
-        })
+        } else {
+            return false
+        }
     }
 
 
@@ -51,7 +63,7 @@ class StateContainer extends Component<{}, StateSchema> {
         const context = {
             state: this.state,
             actions: {
-                handleSubmit: this.handleSubmit,
+                login: this.login,
                 checkUserLogged: this.checkUserLogged
             }
         };

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Api } from "../api/apiManager";
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
-import { StateConsumer, ContextSchema } from '../Context/Provider';
+import { StateConsumer, StateContext } from '../Context/Provider';
 
 interface LoginSchema {
     mail: string
@@ -11,6 +11,7 @@ interface LoginSchema {
 }
 
 export class LogApp extends React.Component {
+    static contextType = StateContext;
 
     state: LoginSchema = {
         mail: '',
@@ -21,6 +22,7 @@ export class LogApp extends React.Component {
 
 
     componentDidMount() {
+
     }
 
     handleChangeUserName = (event: any) => {
@@ -30,9 +32,17 @@ export class LogApp extends React.Component {
         this.setState({ mdp: event.target.value });
     }
 
+    handleSubmit = (mail: string, mdp: string) => {
+
+        this.context.actions.login(mail, mdp).then((res: any) => {
+            console.log(res)
+        })
+
+    }
+
     render() {
-        if (this.state.logged === true) {
-            return <Redirect to="/game" />
+        if (this.context.actions.checkUserLogged() === true) {
+            return <Redirect to='/game' />
         }
 
         return (
@@ -41,16 +51,8 @@ export class LogApp extends React.Component {
                     <input type="text" placeholder="Email" value={this.state.mail} onChange={this.handleChangeUserName} />
                     <input type="password" placeholder="mdp" value={this.state.mdp} onChange={this.handleChangePassword} />
                 </label>
-                <StateConsumer>
-                    {(context) => (
-                        <React.Fragment>
-                            <button onClick={() => context.actions.handleSubmit(this.state.mail, this.state.mdp)} />
-                        </React.Fragment>
-                    )}
-                </StateConsumer>
-
-
-            </div>
+                <button onClick={() => this.handleSubmit(this.state.mail, this.state.mdp)} />
+            </div >
         );
     }
 }

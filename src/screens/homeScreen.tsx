@@ -9,6 +9,9 @@ import { SubscribeApp } from "../components/subscribe";
 
 class Home extends React.Component {
 
+
+
+
   render() {
     return (
       <div className="backgroundImageContainer" >
