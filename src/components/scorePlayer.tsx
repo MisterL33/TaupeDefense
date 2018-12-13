@@ -46,9 +46,10 @@ export default class ScoreApp extends React.Component<{}, ScoreSchema> {
 
 
     render() {
-        return <div>
-            <PlayerList state={this.state.user} />
-        </div>
-
+        return (
+            <div className="menuContainer">
+                <PlayerList state={this.state.user} />
+            </div>
+        )
     }
 }

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 var FA = require("react-fontawesome");
 import RoomComponent from "../components/RoomComponent";
 import BoardComponent from "../components/BoardComponent";
+import ScoreApp from "../components/scorePlayer"
 import { StateConsumer, StateContext } from '../Context/Provider';
 
 class Game extends Component {
@@ -23,7 +24,9 @@ class Game extends Component {
     return (
       <div className="backgroundImageContainer">
         <div className="containerPrincipal">
-          {/* TODO : Fenetre de menu */}
+          {this.context.state.player.party.grid &&
+            <ScoreApp />
+          }
           <div className="gameContainer">
             {this.renderManager()} {/* Fais pop une fenetre en fonction du playerState */}
           </div>

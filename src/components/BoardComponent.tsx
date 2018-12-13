@@ -7,9 +7,12 @@ import taupe from "../pictures/taupe.png";
 import trou from "../pictures/trou.png";
 import openSocket from 'socket.io-client';
 import RoomComponent from "./RoomComponent";
+import { StateConsumer, StateContext } from '../Context/Provider';
 
 
 class BoardComponent extends Component {
+    static contextType = StateContext;
+
     state = {
         playerState: '',
         grid: [[0, 1, 0, 0], [0, 1, 0, 1], [0, 1, 1, 1], [0, 0, 0, 0]]
@@ -33,27 +36,37 @@ class BoardComponent extends Component {
 
     }
 
-    caseCalculator = () => {
+    cellCalculator = (cell: any) => {
 
-        let x = 1
-        let y = 2
-        let w = 6
-        let h = 5
+        let x = cell.x
+        let y = cell.y
+        let status = null
+        let w = this.context.state.player.party.grid.parameter.columns
+        let h = this.context.state.player.party.grid.parameter.lines
 
-        let top: number = x / w * 100
+        switch (cell.status) {
+            case 0: status = 'cell--void'
+            case 1: status = 'cell--mole'
+            case 2: status = 'cell--closed'
+            case 3: status = '.cell--mole-hit'
+            default: status = 'cell--void'
+        }
+
         let left: number = y / w * 100
-        let width: number = h / w * 100
-        let cell: JSX.Element[] = [];
+        let width: number = 100 / w
+        let height: number = 100 / h
+        let top: number = x / h * 100
+        let board: JSX.Element[] = [];
 
-        cell.push(<div id={x + '-' + y} onClick={(evt) => this.handleCellClick(evt)} className="cell cell--mole" style={{ top: top + '%', left: left + '%', width: width, height: '20%' }}></div >)
+        board.push(<div id={x + '-' + y} onClick={(evt) => this.handleCellClick(evt)} className={"cell " + status} style={{ top: top + '%', left: left + '%', width: width + '%', height: height + '%' }}></div >)
 
-        return cell
+        return board
 
 
     }
 
     handleCellClick = (evt: any) => {
-        console.log(evt.currentTarget)
+        console.log(evt.currentTarget.id)
 
     }
 
@@ -62,15 +75,14 @@ class BoardComponent extends Component {
         return (
             <>
                 <div className="board">
-                    {this.state.grid.map((item, index) => {
+                    {this.context.state.player.party.grid.cells && Object.keys(this.context.state.player.party.grid.cells).map((cell: any) => {
+                        console.log(this.context.state.player.party.grid.cells[cell])
                         return (
                             <>
-                                {this.caseCalculator()}
+                                {this.cellCalculator(this.context.state.player.party.grid.cells[cell])}
                             </>
-
                         )
                     })}
-
                 </div>
             </>
         )

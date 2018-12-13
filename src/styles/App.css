@@ -77,12 +77,22 @@ body {
 .containerPrincipal{
   margin-top:113px;
   height:90%;
+  text-align: center;
 }
 
 .gameContainer{
   height: 100%;
-  width: 50%;
+  width: 60%;
+  border: 4px solid #996633;
+  background-color: burlywood;
   margin: auto;
+  display: inline-block;
+}
+
+.menuContainer{
+  display: inline-block;
+  position: relative;
+  width: 20%;
 }
 
 .taupeContainer{
@@ -112,13 +122,13 @@ body {
 
 .roomContainer
 {
-  height: 80%;
+  height: 100%;
   list-style: none;
-  top: 3%;
+  top: 0;
   position: relative;
   padding: unset;
-  border: 2px solid black;
-  background-color: #996633;
+  background-color: burlywood;
+  text-align: center;
 }
 
 .taupeContainer p {

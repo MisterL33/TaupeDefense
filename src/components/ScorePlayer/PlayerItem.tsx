@@ -1,7 +1,7 @@
 import './PlayerItem.scss';
 import React, { Component } from "react";
 export default function PlayerItem(props: any) {
-    return <li className="player">
+    return <li key={props.rank} className="player">
         <PlayerBubble rank={props.rank} img={props.img} />
         <PlayerInfos name={props.name} score={props.score} />
         <br />

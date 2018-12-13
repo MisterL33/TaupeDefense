@@ -28,79 +28,70 @@ class RoomComponent extends Component {
         let socket = openSocket('http://localhost:8000');
 
         this.setState({ player: player }, () => {
-            console.log(this.state.player)
         })
 
 
     }
 
     handlePlayerAwait = () => {
-
-
-        let user = { id: '5c01535d712e46348427abae' }
+        let user: any = localStorage.getItem('player')
+        user = JSON.parse(user)
+        user = user.details._id
         this.setState({ playerState: "awaitParty" }, () => {
             RoomComponent.socket.emit('awaitParty', user);
             RoomComponent.socket.on('party', (data: any) => {
-                console.log('here')
-                console.log(data)
                 this.setState({ party: data })
+                this.context.actions.updateParty(data)
+                this.context.actions.updatePlayerState(data.playerState)
             });
         })
 
     }
 
     handlePlayerReady = () => {
-
-
         this.setState({ playerState: "playerReady" }, () => {
             RoomComponent.socket.emit('playerReady', this.state.party);
             RoomComponent.socket.on('party', (data: any) => {
-                console.log('here')
-                console.log(data)
                 this.setState({ party: data }, () => {
                     let emptyGrid = Object.keys(this.state.party.grid).length === 0
                     if (emptyGrid === false) {
-                        this.context.actions.updateGrid(this.state.party.grid)
+                        this.context.actions.updateParty(this.state.party)
+                        this.context.actions.updatePlayerState(this.state.party.status)
                     }
                 })
-
             });
         })
     }
 
-    handlePartyLaunch = () => {
-
-        if (this.state.party.status == 'launch') {
-            this.context.actions.updatePlayerState('launch')
-        }
-
-    }
-
-
     render() {
+
+
         return (
             <>
                 <ul className="roomContainer">
-                    <div>
-                        <p> Recherche de joueurs en cours, veuillez patientez </p>
-                        <p> Nombre de joueurs dans la salle : </p>
-                        <div>
-                            <button onClick={() => this.handlePlayerAwait()} className="btn-gradient cyan small">Jouer</button>
-                        </div>
-                    </div>
-
-
-                    <div>
-                        <p> Bienvenue sur TaupeDefense </p>
-                        <p> Veuillez appuyer sur jouer : </p>
-                        <div>
-                            <button onClick={() => this.handlePlayerReady()} className="btn-gradient cyan small">Pret</button>
-                        </div>
-                    </div>
-
-
-
+                    {this.context.state.player.playerState == '' ?
+                        (
+                            <div>
+                                <p> Bienvenue sur TaupeDefense </p>
+                                <p> Veuillez cliquez pour jouer : </p>
+                                <div>
+                                    <button onClick={() => this.handlePlayerAwait()} className="btn-gradient cyan small">Jouer</button>
+                                </div>
+                            </div>
+                        )
+                        :
+                        (
+                            <div>
+                                <p> Recherche de partie en cours :  </p>
+                                <p> Nombre de joueurs dans la salle  :  {this.context.state.player.party.players && Object.keys(this.context.state.player.party.players).length} </p>
+                                <div>
+                                    <button onClick={() => this.handlePlayerReady()} className="btn-gradient cyan small">Pret</button>
+                                </div>
+                            </div>
+                        )
+                    }
                 </ul>
+
             </>
         )
     }

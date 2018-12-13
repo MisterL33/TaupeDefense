@@ -1,7 +1,6 @@
     .board {
         height: 80%;
         list-style: none;
-        top: 3%;
         position: relative;
         padding: unset;
         border: 2px solid black;
@@ -16,6 +15,12 @@
     .cell {
         position: absolute;
         background: rgba(255, 255, 255, 0.1);
+        border: 2px solid black;
+    }
+
+    .cell--void {
+        background: url('../pictures/trou.png') center no-repeat;
+        background-size: 85%
     }
 
     .cell--mole {
