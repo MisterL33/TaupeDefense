@@ -41,8 +41,8 @@ class BoardComponent extends Component {
         let x = cell.x
         let y = cell.y
         let status = null
-        let w = this.context.state.player.party.grid.parameter.columns
-        let h = this.context.state.player.party.grid.parameter.lines
+        let w = this.context.state.player.party.grid.params.columns
+        let h = this.context.state.player.party.grid.params.lines
 
         switch (cell.status) {
             case 0: status = 'cell--void'

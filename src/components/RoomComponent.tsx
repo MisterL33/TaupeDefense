@@ -38,6 +38,7 @@ class RoomComponent extends Component {
         user = JSON.parse(user)
         user = user.details._id
         this.setState({ playerState: "awaitParty" }, () => {
+            console.log(user)
             RoomComponent.socket.emit('awaitParty', user);
             RoomComponent.socket.on('party', (data: any) => {
                 this.setState({ party: data })
