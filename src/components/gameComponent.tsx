@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import "../styles/App.css";
 import "../styles/board.css";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 var FA = require("react-fontawesome");
 import taupe from "../pictures/taupe.png";
 import trou from "../pictures/trou.png";
 import openSocket from 'socket.io-client';
-import RoomComponent from "./RoomComponent";
-import BoardComponent from "./BoardComponent";
+
 
 
 class GameComponent extends Component {
+
     state = {
         playerState: '',
         grid: [[0, 1, 0, 0], [0, 1, 0, 1], [0, 1, 1, 1], [0, 0, 0, 0]]
@@ -60,20 +59,14 @@ class GameComponent extends Component {
 
     }
 
-    renderManager = (): JSX.Element => { //fonction gérant l'affichage des composants en fonction du playerState
-        switch (this.state.playerState) {
-            case 'ready': return <BoardComponent />;
-            case 'await': return <RoomComponent />;
-            default: return <RoomComponent />
-        }
-    }
+
 
 
     render() {
         return (
-            <>
-                {this.renderManager()}
-            </>
+            <div>
+                <p> Game </p>
+            </div>
         )
     }
 }

@@ -33,23 +33,6 @@ class BoardComponent extends Component {
 
     }
 
-
-    componentDidMount() {
-
-    }
-
-    handlePlayerReady = () => {
-        let socket = openSocket('http://localhost:8000');
-        this.setState({ playerState: "awaitParty" }, () => {
-            socket.emit('awaitParty', "Un joueur attends une party");
-        })
-
-        socket.on('partyCreated', (data: any) => {
-            console.log(data)
-        });
-
-    }
-
     caseCalculator = () => {
 
         let x = 1

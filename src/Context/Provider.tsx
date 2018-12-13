@@ -4,7 +4,9 @@ import { Redirect } from "react-router-dom";
 
 export interface PlayerSchema {
     details: any
-    logged: boolean
+    logged: boolean,
+    playerState: string,
+    grid: object
 }
 interface StateSchema {
     player: PlayerSchema
@@ -14,7 +16,9 @@ export interface ContextSchema {
     state: StateSchema;
     actions: {
         login: (mail: string, mdp: string) => void,
-        checkUserLogged: () => boolean
+        checkUserLogged: () => boolean,
+        updatePlayerState: (state: string) => void,
+        updateGrid: (grid: object) => void
     };
 }
 
@@ -24,7 +28,9 @@ class StateContainer extends Component<{}, StateSchema> {
     state: StateSchema = {
         player: {
             details: {},
-            logged: false
+            logged: false,
+            playerState: '',
+            grid: {}
         }
     }
 
@@ -58,13 +64,30 @@ class StateContainer extends Component<{}, StateSchema> {
         }
     }
 
+    updatePlayerState = (state: string) => {
+        let player = this.state.player
+        player.playerState = state
+        this.setState({ player })
+    }
+
+    updateGrid = (grid: object) => {
+        let player = this.state.player
+        player.grid = grid
+        this.setState({ player })
+    }
+
+
+
 
     render() {
         const context = {
             state: this.state,
             actions: {
                 login: this.login,
-                checkUserLogged: this.checkUserLogged
+                checkUserLogged: this.checkUserLogged,
+                updatePlayerState: this.updatePlayerState,
+                updateGrid: this.updateGrid
+
             }
         };
         return (

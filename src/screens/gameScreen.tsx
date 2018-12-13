@@ -2,9 +2,22 @@ import React, { Component } from "react";
 import "../styles/App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 var FA = require("react-fontawesome");
-import GameWindow from '../components/GameComponent'
+import RoomComponent from "../components/RoomComponent";
+import BoardComponent from "../components/BoardComponent";
+import { StateConsumer, StateContext } from '../Context/Provider';
 
 class Game extends Component {
+
+  static contextType = StateContext;
+
+
+  renderManager = (): JSX.Element => { //fonction gérant l'affichage des composants en fonction du playerState
+    switch (this.context.state.player.playerState) {
+      case 'await': return <RoomComponent />;
+      case 'launch': return <BoardComponent />
+      default: return <RoomComponent />
+    }
+  }
 
   render() {
     return (
@@ -12,7 +25,7 @@ class Game extends Component {
         <div className="containerPrincipal">
           {/* TODO : Fenetre de menu */}
           <div className="gameContainer">
-            <GameWindow /> {/* Correspond à gameComponent.tsx et fais pop la fenetre de jeu */}
+            {this.renderManager()} {/* Fais pop une fenetre en fonction du playerState */}
           </div>
         </div>
       </div>

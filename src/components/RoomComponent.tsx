@@ -4,8 +4,12 @@ import "../styles/board.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 var FA = require("react-fontawesome");
 import openSocket from 'socket.io-client';
+import { StateConsumer, StateContext } from '../Context/Provider';
 
 class RoomComponent extends Component {
+    static socket = openSocket('http://localhost:8000');
+    static contextType = StateContext;
+
     state = {
         idRoom: null,
         playerState: '',
@@ -14,7 +18,8 @@ class RoomComponent extends Component {
         },
         party: {
             id: null,
-            status: null
+            status: null,
+            grid: {}
         }
     }
 
@@ -30,12 +35,12 @@ class RoomComponent extends Component {
     }
 
     handlePlayerAwait = () => {
-        let socket = openSocket('http://localhost:8000');
+
 
         let user = { id: '5c01535d712e46348427abae' }
         this.setState({ playerState: "awaitParty" }, () => {
-            socket.emit('awaitParty', user);
-            socket.on('party', (data: any) => {
+            RoomComponent.socket.emit('awaitParty', user);
+            RoomComponent.socket.on('party', (data: any) => {
                 console.log('here')
                 console.log(data)
                 this.setState({ party: data })
@@ -45,18 +50,31 @@ class RoomComponent extends Component {
     }
 
     handlePlayerReady = () => {
-        let socket = openSocket('http://localhost:8000');
+
 
         this.setState({ playerState: "playerReady" }, () => {
-            socket.emit('playerReady', this.state.party);
-            socket.on('party', (data: any) => {
+            RoomComponent.socket.emit('playerReady', this.state.party);
+            RoomComponent.socket.on('party', (data: any) => {
                 console.log('here')
                 console.log(data)
-                this.setState({ party: data })
+                this.setState({ party: data }, () => {
+                    let emptyGrid = Object.keys(this.state.party.grid).length === 0
+                    if (emptyGrid === false) {
+                        this.context.actions.updateGrid(this.state.party.grid)
+                    }
+                })
+
             });
         })
     }
 
+    handlePartyLaunch = () => {
+
+        if (this.state.party.status == 'launch') {
+            this.context.actions.updatePlayerState('launch')
+        }
+
+    }
 
 
     render() {
