@@ -1,0 +1,16 @@
+.player {
+  display: inline-block;
+}
+
+.player__bubble {
+  width: 48px !important;
+  height: 48px !important;
+  background-color: grey;
+  border: 4px solid darkblue;
+  border-radius: 1000px;
+  box-shadow: 0px 0px 0px 2px black, 0px 0px 0px 2px black inset;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  margin: 0 20px;
+}

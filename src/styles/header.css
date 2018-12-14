@@ -1,0 +1,26 @@
+.navbar {
+  background-color: white;
+  z-index: 10;
+  height: 75px;
+}
+
+.navbar img {
+  text-align: center;
+  width: 100px;
+  height: 80px;
+}
+
+#navbarContainer {
+  display: flex;
+  width: 100%;
+}
+
+#logoContainer {
+  width: 100%;
+  text-align: center;
+}
+
+#logoContainer a {
+  font-size: x-large;  
+  color: black;
+}

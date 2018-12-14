@@ -5,7 +5,11 @@ var FA = require("react-fontawesome");
 import { StateConsumer, ContextSchema } from '../Context/Provider';
 import { LogApp } from "../components/logIn"
 import { SubscribeApp } from "../components/subscribe";
-
+import "../styles/App.css";
+import "../styles/header.css";
+import "../styles/board.css";
+import "../styles/background.css";
+import "../styles/menu.css";
 
 class Home extends React.Component {
 

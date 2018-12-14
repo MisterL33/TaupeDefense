@@ -23,11 +23,11 @@ class Game extends Component {
   render() {
     return (
       <div className="backgroundImageContainer">
-        <div className="containerPrincipal">
+        <div className="containerPrincipal row">
           {this.context.state.player.party.grid &&
             <ScoreApp />
           }
-          <div className="gameContainer">
+          <div className="gameContainer center-align">
             {this.renderManager()} {/* Fais pop une fenetre en fonction du playerState */}
           </div>
         </div>

@@ -1,0 +1,22 @@
+.backgroundImageContainer {
+  background: url(../pictures/3_Mole.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+}
+.backgroundImageContainer {
+  width: 100%;
+  position: relative;
+  top: -113px;
+}
+
+.backgroundImageContainer a {
+  position: relative;
+  top: 20%;
+}
+
+.backgroundImage {
+  width: 100%;
+}

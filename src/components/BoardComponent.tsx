@@ -67,6 +67,12 @@ class BoardComponent extends Component {
 
     handleCellClick = (evt: any) => {
         console.log(evt.currentTarget.id)
+        let coord = evt.currentTarget.id.split("-");
+        let x = coord[0]
+        let y = coord[1]
+        console.log(coord)
+        this.context.state.player.socket.emit('hit', x, y)
+
 
     }
 

@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Api } from "../api/apiManager";
 import { Redirect } from "react-router-dom";
+import openSocket from 'socket.io-client';
 
 export interface PlayerSchema {
     details: any
     logged: boolean,
     playerState: string,
-    party: object
+    party: object,
+    socket: any
 }
 interface StateSchema {
     player: PlayerSchema
@@ -18,19 +20,24 @@ export interface ContextSchema {
         login: (mail: string, mdp: string) => void,
         checkUserLogged: () => boolean,
         updatePlayerState: (state: string) => void,
-        updateParty: (grid: object) => void
+        updateParty: (grid: object) => void,
+        logout: () => void
     };
 }
 
 export const StateContext = React.createContext<ContextSchema>({} as ContextSchema)
 
 class StateContainer extends Component<{}, StateSchema> {
+
+    static socket = openSocket('http://localhost:8000');
+
     state: StateSchema = {
         player: {
             details: {},
             logged: false,
             playerState: '',
-            party: {}
+            party: {},
+            socket: StateContainer.socket
         }
     }
 
@@ -76,6 +83,10 @@ class StateContainer extends Component<{}, StateSchema> {
         this.setState({ player })
     }
 
+    logout = () => {
+        localStorage.clear()
+    }
+
 
 
 
@@ -86,7 +97,8 @@ class StateContainer extends Component<{}, StateSchema> {
                 login: this.login,
                 checkUserLogged: this.checkUserLogged,
                 updatePlayerState: this.updatePlayerState,
-                updateParty: this.updateParty
+                updateParty: this.updateParty,
+                logout: this.logout
 
             }
         };

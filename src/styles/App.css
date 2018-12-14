@@ -1,11 +1,3 @@
-.backgroundImageContainer {
-  background: url(../pictures/3_Mole.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  height: 100%;
-}
 
 html {
   height: 100%;
@@ -29,46 +21,8 @@ body {
   height: 100%;
 }
 
-.backgroundImageContainer {
-  width: 100%;
-  position: relative;
-  top: -113px;
-}
 
-.backgroundImageContainer a {
-  position: relative;
-  top: 20%;
-}
 
-.backgroundImage {
-  width: 100%;
-}
-
-.navbar {
-  background-color: white;
-  z-index: 10;
-}
-
-.navbar img {
-  text-align: center;
-  width: 100px;
-  height: 80px;
-}
-
-#navbarContainer {
-  display: flex;
-  width: 100%;
-}
-
-#logoContainer {
-  width: 100%;
-  text-align: center;
-}
-
-#logoContainer a {
-  font-size: x-large;  
-  color: black;
-}
 
 .routerContainer {
   height: 100%;
@@ -86,11 +40,11 @@ body {
   border: 4px solid #996633;
   background-color: burlywood;
   margin: auto;
-  display: inline-block;
 }
 
 .menuContainer{
   display: inline-block;
+  float: left;
   position: relative;
   width: 20%;
 }
@@ -153,65 +107,3 @@ body {
   margin: 0 auto;
 }
 
-.ligneTaupe1 {
-  margin-top: 3%;
-}
-
-.btn-gradient {
-    margin: 5px;
-}
-
-.btn.cyan {
-  background-color: #7fccde;
-}
-
-.btn.small, 
-.btn-two.small, 
-.btn-gradient.small, 
-.btn-effect.small {
-  padding: 8px 18px;  
-  font-size: 14px;
-}
-
-.chatBox {
-  width: 21%;
-  height: 60%;
-  float: left;
-  margin-top: 2%;
-  border: 2px solid black;
-  text-align: center;
-  margin-left: 1%;
-}
-
-.chatBox div{
-  height: 100%
-}
-
-.bodyChatBox{
-  height: 100%;
-  background-color: white;
-}
-
-#headerChatBox{
-  background-color: antiquewhite;
-  height: 35px;
-}
-
-.playerList {}
-
-    .player {
-        display: inline-block;
-    }
-
-.player__bubble {
-    width: 48px !important;
-    height: 48px !important;
-    background-color: grey;
-    border: 4px solid darkblue;
-    border-radius: 1000px;
-    box-shadow: 0px 0px 0px 2px black, 0px 0px 0px 2px black inset;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    margin: 0 20px;
-}
