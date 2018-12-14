@@ -17,6 +17,7 @@
     "@types/socket.io": "^2.1.0",
     "@types/socket.io-client": "^1.4.32",
     "chai": "^4.2.0",
+    "circular-json": "^0.5.9",
     "istanbul": "^0.4.5",
     "materialize-css": "^1.0.0-rc.2",
     "mocha": "^5.2.0",

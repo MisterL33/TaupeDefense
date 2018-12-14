@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Api } from "../api/apiManager";
 import { Redirect } from "react-router-dom";
 import openSocket from 'socket.io-client';
+const JSON = require('circular-json');
 
 export interface PlayerSchema {
     details: any
