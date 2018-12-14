@@ -15,7 +15,6 @@
     .cell {
         position: absolute;
         background: rgba(255, 255, 255, 0.1);
-        border: 2px solid black;
     }
 
     .cell--void {

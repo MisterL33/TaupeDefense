@@ -14,8 +14,8 @@ class BoardComponent extends Component {
     static contextType = StateContext;
 
     componentDidMount() {
-        console.log(this.context.state.player)
-        this.context.state.player.socket.on('grid', (data: any) => {
+        console.log(this.context.player)
+        this.context.player.socket.on('grid', (data: any) => {
             this.context.actions.updateGrid(data.grid)
         })
     }
@@ -26,8 +26,8 @@ class BoardComponent extends Component {
         let x = cell.x
         let y = cell.y
         let status = null
-        let w = this.context.state.player.grid.params.columns
-        let h = this.context.state.player.grid.params.lines
+        let w = this.context.player.grid.params.columns
+        let h = this.context.player.grid.params.lines
 
         switch (cell.status) {
             case 0: status = 'cell--void'
@@ -40,7 +40,6 @@ class BoardComponent extends Component {
                 break;
             default: status = 'cell--void'
         }
-        console.log(status)
 
         let left: number = y / w * 100
         let width: number = 100 / w
@@ -57,7 +56,7 @@ class BoardComponent extends Component {
         let coord = evt.currentTarget.id.split("-");
         let x = coord[0]
         let y = coord[1]
-        this.context.state.player.socket.emit('hit', x, y)
+        this.context.player.socket.emit('hit', x, y)
     }
 
 
@@ -65,10 +64,10 @@ class BoardComponent extends Component {
         return (
             <>
                 <div className="board">
-                    {this.context.state.player.grid.cells && Object.keys(this.context.state.player.grid.cells).map((cell: any) => {
+                    {this.context.player.grid.cells && Object.keys(this.context.player.grid.cells).map((cell: any) => {
                         return (
                             <>
-                                {this.cellCalculator(this.context.state.player.grid.cells[cell])}
+                                {this.cellCalculator(this.context.player.grid.cells[cell])}
                             </>
                         )
                     })}

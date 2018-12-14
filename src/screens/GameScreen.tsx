@@ -13,7 +13,7 @@ class Game extends Component {
 
 
   renderManager = (): JSX.Element => { //fonction gérant l'affichage des composants en fonction du playerState
-    switch (this.context.state.player.playerState) {
+    switch (this.context.player.playerState) {
       case 'await': return <RoomComponent />;
       case 'launch': return <BoardComponent />
       default: return <RoomComponent />
@@ -24,7 +24,7 @@ class Game extends Component {
     return (
       <div className="backgroundImageContainer">
         <div className="containerPrincipal row">
-          {this.context.state.player.grid &&
+          {this.context.player.grid &&
             <ScoreApp />
           }
           <div className="gameContainer center-align">

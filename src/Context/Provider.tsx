@@ -4,6 +4,8 @@ import { Redirect } from "react-router-dom";
 import openSocket from 'socket.io-client';
 const JSON = require('circular-json');
 
+const apiBasePath = 'http://64dfccf8.ngrok.io' //'http://localhost:8000'
+
 export interface PlayerSchema {
     details: any
     logged: boolean,
@@ -14,10 +16,6 @@ export interface PlayerSchema {
 }
 interface StateSchema {
     player: PlayerSchema
-}
-
-export interface ContextSchema {
-    state: StateSchema;
     actions: {
         login: (mail: string, mdp: string) => void,
         checkUserLogged: () => boolean,
@@ -25,30 +23,19 @@ export interface ContextSchema {
         updateParty: (party: object) => void,
         updateGrid: (grid: object) => void,
         logout: () => void
-    };
+    }
 }
 
-export const StateContext = React.createContext<ContextSchema>({} as ContextSchema)
+export const StateContext = React.createContext<StateSchema>({} as StateSchema)
 
 class StateContainer extends Component<{}, StateSchema> {
 
-    static socket = openSocket('http://localhost:8000');
-
-    state: StateSchema = {
-        player: {
-            details: {},
-            logged: false,
-            playerState: '',
-            party: {},
-            grid: {},
-            socket: StateContainer.socket
-        }
-    }
+    static socket = openSocket(apiBasePath + '');
 
     login = async (mail: string, mdp: string) => {
         const user = { user: { "email": mail, "password": mdp } }
         let player = this.state.player
-        await fetch('http://localhost:8000/api/users/login', {
+        await fetch(apiBasePath + '/api/users/login', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -97,24 +84,28 @@ class StateContainer extends Component<{}, StateSchema> {
         localStorage.clear()
     }
 
-
-
+    state: StateSchema = {
+        player: {
+            details: {},
+            logged: false,
+            playerState: '',
+            party: {},
+            grid: {},
+            socket: StateContainer.socket
+        },
+        actions: {
+            login: this.login,
+            checkUserLogged: this.checkUserLogged,
+            updatePlayerState: this.updatePlayerState,
+            updateParty: this.updateParty,
+            updateGrid: this.updateGrid,
+            logout: this.logout
+        }
+    }
 
     render() {
-        const context = {
-            state: this.state,
-            actions: {
-                login: this.login,
-                checkUserLogged: this.checkUserLogged,
-                updatePlayerState: this.updatePlayerState,
-                updateParty: this.updateParty,
-                updateGrid: this.updateGrid,
-                logout: this.logout
-
-            }
-        };
         return (
-            <StateContext.Provider value={context}>
+            <StateContext.Provider value={this.state}>
                 {this.props.children}
             </StateContext.Provider>
         );

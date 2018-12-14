@@ -34,11 +34,12 @@ class RoomComponent extends Component {
         user = user.details._id
         this.setState({ playerState: "awaitParty" }, () => {
             console.log(user)
-            this.context.state.player.socket.emit('awaitParty', user);
-            this.context.state.player.socket.on('party', (data: any) => {
+            this.context.player.socket.emit('awaitParty', user);
+            this.context.player.socket.on('party', (data: any) => {
                 this.setState({ party: data })
+                console.log(data)
                 this.context.actions.updateParty(data)
-                this.context.actions.updatePlayerState(data.playerState)
+                // this.context.actions.updatePlayerState(data.playerState)
             });
         })
 
@@ -46,12 +47,12 @@ class RoomComponent extends Component {
 
     handlePlayerReady = () => {
         this.setState({ playerState: "playerReady" }, () => {
-            this.context.state.player.socket.emit('playerReady', this.state.party);
-            this.context.state.player.socket.on('party', (data: any) => {
+            this.context.player.socket.emit('playerReady', this.state.party);
+            this.context.player.socket.on('party', (data: any) => {
                 this.setState({ party: data }, () => {
                     let emptyGrid = Object.keys(this.state.party.grid).length === 0
                     if (emptyGrid === false) {
-                        console.log(this.context.state)
+                        console.log(data)
                         this.context.actions.updateParty(this.state.party)
                         this.context.actions.updatePlayerState(this.state.party.status)
                     }
@@ -66,7 +67,7 @@ class RoomComponent extends Component {
         return (
             <>
                 <ul className="roomContainer">
-                    {this.context.state.player.playerState == '' ?
+                    {this.context.player.party.status !== 'await' ?
                         (
                             <div>
                                 <p> Bienvenue sur TaupeDefense </p>
@@ -80,7 +81,7 @@ class RoomComponent extends Component {
                         (
                             <div>
                                 <p> Recherche de partie en cours :  </p>
-                                <p> Nombre de joueurs dans la salle  :  {this.context.state.player.party.players && Object.keys(this.context.state.player.party.players).length} </p>
+                                <p> Nombre de joueurs dans la salle  :  {this.context.player.party.players && Object.keys(this.context.player.party.players).length} </p>
                                 <div>
                                     <button onClick={() => this.handlePlayerReady()} className="btn-gradient cyan small">Pret</button>
                                 </div>

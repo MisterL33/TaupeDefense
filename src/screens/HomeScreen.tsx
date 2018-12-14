@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import "../styles/App.css";
 var FA = require("react-fontawesome");
-import { StateConsumer, ContextSchema } from '../Context/Provider';
 import { LogApp } from "../components/logIn"
 import { SubscribeApp } from "../components/subscribe";
 import "../styles/App.css";
