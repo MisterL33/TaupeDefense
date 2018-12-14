@@ -34,12 +34,13 @@ class BoardComponent extends Component {
                 break;
             case 1: status = 'cell--mole'
                 break;
-            case 2: status = 'cell--closed'
+            case 2: status = 'cell--mole-hit'
                 break;
-            case 3: status = '.cell--mole-hit'
+            case 3: status = 'cell--closed'
                 break;
             default: status = 'cell--void'
         }
+        console.log(status)
 
         let left: number = y / w * 100
         let width: number = 100 / w

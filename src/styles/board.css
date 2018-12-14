@@ -29,10 +29,11 @@
     }
 
     .cell--closed {
-        background: url('../pictures/trou.png') center no-repeat;
+        background: url('../pictures/monticule.png') center no-repeat;
         background-size: 85%
     }
 
     .cell--mole-hit {
-        background: rgb(255, 0, 0);
+        background: url('../pictures/taupe-ecrase.png') center no-repeat;
+        background-size: 85%
     }
