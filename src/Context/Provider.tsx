@@ -9,6 +9,7 @@ export interface PlayerSchema {
     logged: boolean,
     playerState: string,
     party: object,
+    grid: object,
     socket: any
 }
 interface StateSchema {
@@ -21,7 +22,8 @@ export interface ContextSchema {
         login: (mail: string, mdp: string) => void,
         checkUserLogged: () => boolean,
         updatePlayerState: (state: string) => void,
-        updateParty: (grid: object) => void,
+        updateParty: (party: object) => void,
+        updateGrid: (grid: object) => void,
         logout: () => void
     };
 }
@@ -38,6 +40,7 @@ class StateContainer extends Component<{}, StateSchema> {
             logged: false,
             playerState: '',
             party: {},
+            grid: {},
             socket: StateContainer.socket
         }
     }
@@ -84,6 +87,12 @@ class StateContainer extends Component<{}, StateSchema> {
         this.setState({ player })
     }
 
+    updateGrid = (grid: object) => {
+        let player = this.state.player
+        player.grid = grid
+        this.setState({ player })
+    }
+
     logout = () => {
         localStorage.clear()
     }
@@ -99,6 +108,7 @@ class StateContainer extends Component<{}, StateSchema> {
                 checkUserLogged: this.checkUserLogged,
                 updatePlayerState: this.updatePlayerState,
                 updateParty: this.updateParty,
+                updateGrid: this.updateGrid,
                 logout: this.logout
 
             }

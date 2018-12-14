@@ -20,25 +20,19 @@ class HeaderComponent extends Component {
 
     render() {
         return (
-            <nav className="navbar">
-                <div className="" id="navbarContainer">
-                    <div id="logoContainer">
-                        <Link to="/">
-                            <img src={logo} alt="logo" />
-                            TaupeDefense
-                        </Link>
+            <>
+                <ul id="dropdown1" className="dropdown-content">
+                    <li><a href="#!">Profil</a></li>
+                    <li><a onClick={this.context.actions.logout}>Déconnexion</a></li>
+                </ul>
+
+                <nav>
+                    <div className="nav-wrapper">
+                        <a href="/" className="brand-logo center taupeLogo"><p><img height='65' src={logo} />Taupedefense</p></a>
+                        <a className='menuTaupe dropdown-trigger' href='#' data-target='dropdown1'><img height='65' src={account} alt='menu' /></a>
                     </div>
-                    <a>
-                        <a className='dropdown-trigger' href='#' data-target='menu'><img src={account} alt='menu' /></a>
-
-                        <ul id='menu' className='dropdown-content'>
-                            <li><a href="#!">Profil</a></li>
-                            <li><a onClick={this.context.actions.logout}>Déconnexion</a></li>
-                        </ul>
-
-                    </a>
-                </div>
-            </nav>
+                </nav>
+            </>
         )
     }
 }

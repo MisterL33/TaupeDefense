@@ -24,3 +24,28 @@
   font-size: x-large;  
   color: black;
 }
+
+.taupeLogo {
+  position: relative !important;
+  top: -50px;
+}
+
+.taupeLogo > p > img {
+  position: relative !important;
+  top: 18px;
+  
+}
+
+.taupeLogo > p {
+  color: black;
+}
+
+.menuTaupe {
+  float:right
+}
+
+.nav-wrapper{
+  background: white !important;
+}
+
+    

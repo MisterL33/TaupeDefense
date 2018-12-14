@@ -13,42 +13,31 @@ import { StateConsumer, StateContext } from '../Context/Provider';
 class BoardComponent extends Component {
     static contextType = StateContext;
 
-    state = {
-        playerState: '',
-        grid: [[0, 1, 0, 0], [0, 1, 0, 1], [0, 1, 1, 1], [0, 0, 0, 0]]
+    componentDidMount() {
+        console.log(this.context.state.player)
+        this.context.state.player.socket.on('grid', (data: any) => {
+            this.context.actions.updateGrid(data.grid)
+        })
     }
 
-    fillWithTaupe = () => {
-
-        let multiLi: JSX.Element[] = [] // reçois 5 li qui vont servir de ligne pour chaque rangée de taupe
-        let multiCaseTaupe: JSX.Element[] = [] // reçois 3 li qui vont servir de case pour chaque taupe
-
-        for (let y = 1; y <= 3; y++) {
-            multiCaseTaupe.push(<li key={y}><img className="taupeSorti" src={taupe} alt="taupe" /></li>)
-
-        }
-
-        for (let i = 1; i <= 5; i++) {
-            multiLi.push(<li className={"rowTaupe ligneTaupe" + i} key={i}><ul className={"taupeBoxContainer"}>{multiCaseTaupe}</ul></li>)
-        }
-
-        return multiLi
-
-    }
 
     cellCalculator = (cell: any) => {
 
         let x = cell.x
         let y = cell.y
         let status = null
-        let w = this.context.state.player.party.grid.params.columns
-        let h = this.context.state.player.party.grid.params.lines
+        let w = this.context.state.player.grid.params.columns
+        let h = this.context.state.player.grid.params.lines
 
         switch (cell.status) {
             case 0: status = 'cell--void'
+                break;
             case 1: status = 'cell--mole'
+                break;
             case 2: status = 'cell--closed'
+                break;
             case 3: status = '.cell--mole-hit'
+                break;
             default: status = 'cell--void'
         }
 
@@ -61,19 +50,13 @@ class BoardComponent extends Component {
         board.push(<div id={x + '-' + y} onClick={(evt) => this.handleCellClick(evt)} className={"cell " + status} style={{ top: top + '%', left: left + '%', width: width + '%', height: height + '%' }}></div >)
 
         return board
-
-
     }
 
     handleCellClick = (evt: any) => {
-        console.log(evt.currentTarget.id)
         let coord = evt.currentTarget.id.split("-");
         let x = coord[0]
         let y = coord[1]
-        console.log(coord)
         this.context.state.player.socket.emit('hit', x, y)
-
-
     }
 
 
@@ -81,11 +64,10 @@ class BoardComponent extends Component {
         return (
             <>
                 <div className="board">
-                    {this.context.state.player.party.grid.cells && Object.keys(this.context.state.player.party.grid.cells).map((cell: any) => {
-                        console.log(this.context.state.player.party.grid.cells[cell])
+                    {this.context.state.player.grid.cells && Object.keys(this.context.state.player.grid.cells).map((cell: any) => {
                         return (
                             <>
-                                {this.cellCalculator(this.context.state.player.party.grid.cells[cell])}
+                                {this.cellCalculator(this.context.state.player.grid.cells[cell])}
                             </>
                         )
                     })}

@@ -24,11 +24,13 @@
     }
 
     .cell--mole {
-        background: rgba(255, 0, 0, 0.2);
+        background: url('../pictures/taupe.png') center no-repeat;
+        background-size: 85%
     }
 
     .cell--closed {
-        background: rgb(0, 255, 255);
+        background: url('../pictures/trou.png') center no-repeat;
+        background-size: 85%
     }
 
     .cell--mole-hit {

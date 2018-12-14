@@ -24,7 +24,7 @@ class Game extends Component {
     return (
       <div className="backgroundImageContainer">
         <div className="containerPrincipal row">
-          {this.context.state.player.party.grid &&
+          {this.context.state.player.grid &&
             <ScoreApp />
           }
           <div className="gameContainer center-align">
