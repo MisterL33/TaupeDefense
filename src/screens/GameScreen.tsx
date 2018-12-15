@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import "../styles/App.css";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 var FA = require("react-fontawesome");
 import RoomComponent from "../components/RoomComponent";
 import BoardComponent from "../components/BoardComponent";
 import ScoreApp from "../components/ScorePlayer"
-import { StateConsumer, StateContext } from '../context/Provider';
+import { StateConsumer, StateContext } from '../Context/Provider';
 
 class Game extends Component {
 

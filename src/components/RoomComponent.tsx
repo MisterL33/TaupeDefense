@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 var FA = require("react-fontawesome");
-import { StateContext } from '../context/Provider';
+
+import { StateContext } from '../Context/Provider';
 
 class RoomComponent extends Component {
 

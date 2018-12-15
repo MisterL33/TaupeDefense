@@ -1,16 +1,12 @@
 import React, { Component } from "react";
 import "../styles/App.css";
 import "../styles/board.css";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 var FA = require("react-fontawesome");
-import taupe from "../pictures/taupe.png";
-import trou from "../pictures/trou.png";
-import openSocket from 'socket.io-client';
-import RoomComponent from "./RoomComponent";
-import { StateConsumer, StateContext } from '../context/Provider';
+import { StateContext } from '../Context/Provider';
 
 
 class BoardComponent extends Component {
+
     static contextType = StateContext;
 
     componentDidMount() {
