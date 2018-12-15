@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import openSocket from 'socket.io-client';
 const JSON = require('circular-json');
 
-const apiBasePath = 'http://64dfccf8.ngrok.io' //'http://localhost:8000'
+const apiBasePath = 'http://localhost:8000'
 
 export interface PlayerSchema {
     details: any
