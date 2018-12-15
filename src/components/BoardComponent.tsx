@@ -7,6 +7,7 @@ import taupe from "../pictures/taupe.png";
 import trou from "../pictures/trou.png";
 import openSocket from 'socket.io-client';
 import RoomComponent from "./RoomComponent";
+import hammer from "../pictures/massue.png";
 import { StateConsumer, StateContext } from '../Context/Provider';
 
 
@@ -17,6 +18,14 @@ class BoardComponent extends Component {
         console.log(this.context.player)
         this.context.player.socket.on('grid', (data: any) => {
             this.context.actions.updateGrid(data.grid)
+        })
+
+        this.context.player.socket.on('TaupeHit', (data: any) => {
+            //console.log(data)
+        })
+
+        this.context.player.socket.on('hammers', (data: any) => {
+            this.context.actions.updateAllMouse(data)
         })
     }
 
@@ -59,18 +68,31 @@ class BoardComponent extends Component {
         this.context.player.socket.emit('hit', x, y)
     }
 
+    handleMouseMove = (event: any) => {
+
+        setTimeout(() => {
+            this.context.actions.updateMouseCoord(event.screenX, event.screenY)
+        }, 100);
+
+    }
 
     render() {
         return (
             <>
-                <div className="board">
+                <div onMouseMove={() => this.handleMouseMove(event)} className="board">
                     {this.context.player.grid.cells && Object.keys(this.context.player.grid.cells).map((cell: any) => {
-                        return (
+                        return
+                        (
                             <>
                                 {this.cellCalculator(this.context.player.grid.cells[cell])}
                             </>
                         )
                     })}
+
+                    {this.context.player.allMouse && Object.keys(this.context.player.allMouse).map((mouse: any) => {
+                        <img src={hammer} height='200' />
+                    })}
+
                 </div>
             </>
         )

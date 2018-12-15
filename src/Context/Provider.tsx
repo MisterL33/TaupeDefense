@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import openSocket from 'socket.io-client';
 const JSON = require('circular-json');
 
-const apiBasePath = 'http://64dfccf8.ngrok.io' //'http://localhost:8000'
+const apiBasePath = 'http://localhost:8000' //'http://64dfccf8.ngrok.io'
 
 export interface PlayerSchema {
     details: any
@@ -12,6 +12,9 @@ export interface PlayerSchema {
     playerState: string,
     party: object,
     grid: object,
+    x: number,
+    y: number,
+    allMouse: object,
     socket: any
 }
 interface StateSchema {
@@ -22,7 +25,9 @@ interface StateSchema {
         updatePlayerState: (state: string) => void,
         updateParty: (party: object) => void,
         updateGrid: (grid: object) => void,
-        logout: () => void
+        updateMouseCoord: (x: number, y: number) => void,
+        updateAllMouse: (allMouse: object) => void,
+        logout: () => void,
     }
 }
 
@@ -80,6 +85,21 @@ class StateContainer extends Component<{}, StateSchema> {
         this.setState({ player })
     }
 
+    updateMouseCoord = (x: number, y: number) => {
+        let player = this.state.player
+        player.x = x
+        player.y = y
+        this.setState({ player }, () => {
+            this.state.player.socket.emit('mouse', x, y)
+        })
+    }
+
+    updateAllMouse = (allMouse: object) => {
+        let player = this.state.player
+        player.allMouse = allMouse
+        this.setState({ player })
+    }
+
     logout = () => {
         localStorage.clear()
     }
@@ -91,6 +111,9 @@ class StateContainer extends Component<{}, StateSchema> {
             playerState: '',
             party: {},
             grid: {},
+            x: 0,
+            y: 0,
+            allMouse: {},
             socket: StateContainer.socket
         },
         actions: {
@@ -99,6 +122,8 @@ class StateContainer extends Component<{}, StateSchema> {
             updatePlayerState: this.updatePlayerState,
             updateParty: this.updateParty,
             updateGrid: this.updateGrid,
+            updateMouseCoord: this.updateMouseCoord,
+            updateAllMouse: this.updateAllMouse,
             logout: this.logout
         }
     }

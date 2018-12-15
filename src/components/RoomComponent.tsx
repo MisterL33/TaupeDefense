@@ -36,10 +36,7 @@ class RoomComponent extends Component {
             console.log(user)
             this.context.player.socket.emit('awaitParty', user);
             this.context.player.socket.on('party', (data: any) => {
-                this.setState({ party: data })
-                console.log(data)
                 this.context.actions.updateParty(data)
-                // this.context.actions.updatePlayerState(data.playerState)
             });
         })
 
@@ -47,17 +44,14 @@ class RoomComponent extends Component {
 
     handlePlayerReady = () => {
         this.setState({ playerState: "playerReady" }, () => {
-            this.context.player.socket.emit('playerReady', this.state.party);
+            this.context.player.socket.emit('playerReady', this.context.player.party);
             this.context.player.socket.on('party', (data: any) => {
-                this.setState({ party: data }, () => {
-                    let emptyGrid = Object.keys(this.state.party.grid).length === 0
-                    if (emptyGrid === false) {
-                        console.log(data)
-                        this.context.actions.updateParty(this.state.party)
-                        this.context.actions.updatePlayerState(this.state.party.status)
-                    }
-                })
-            });
+                let emptyGrid = Object.keys(this.context.player.party.grid).length === 0
+                if (emptyGrid === false) {
+                    this.context.actions.updateParty(data)
+                    this.context.actions.updatePlayerState(data.status)
+                }
+            })
         })
     }
 
