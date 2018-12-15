@@ -7,7 +7,7 @@ var FA = require("react-fontawesome");
 import logo from "../pictures/logo.png";
 import account from "../pictures/taupe.png";
 import M from 'materialize-css';
-import { StateConsumer, StateContext } from '../Context/Provider';
+import { StateConsumer, StateContext } from '../context/Provider';
 
 
 class HeaderComponent extends Component {

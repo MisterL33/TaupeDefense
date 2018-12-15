@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Api } from "../api/apiManager";
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
-import { StateConsumer, StateContext } from '../Context/Provider';
+import { StateConsumer, StateContext } from '../context/Provider';
 
 interface LoginSchema {
     mail: string

@@ -1,21 +1,20 @@
 import React, { Component } from "react";
-import { Api } from "../api/apiManager";
-import { Redirect } from "react-router-dom";
 import openSocket from 'socket.io-client';
 const JSON = require('circular-json');
-
-const apiBasePath = 'http://64dfccf8.ngrok.io' //'http://localhost:8000'
+const apiBasePath = 'http://localhost:8000'  //'http://64dfccf8.ngrok.io'
+export const StateContext = React.createContext<StateSchema>({} as StateSchema)
 
 export interface PlayerSchema {
     details: any
     logged: boolean,
     playerState: string,
-    party: object,
-    grid: object,
     socket: any
 }
+
 interface StateSchema {
     player: PlayerSchema
+    grid: object,
+    party: object
     actions: {
         login: (mail: string, mdp: string) => void,
         checkUserLogged: () => boolean,
@@ -26,7 +25,7 @@ interface StateSchema {
     }
 }
 
-export const StateContext = React.createContext<StateSchema>({} as StateSchema)
+
 
 class StateContainer extends Component<{}, StateSchema> {
 
@@ -69,15 +68,11 @@ class StateContainer extends Component<{}, StateSchema> {
     }
 
     updateParty = (party: object) => {
-        let player = this.state.player
-        player.party = party
-        this.setState({ player })
+        this.setState({ party })
     }
 
     updateGrid = (grid: object) => {
-        let player = this.state.player
-        player.grid = grid
-        this.setState({ player })
+        this.setState({ grid })
     }
 
     logout = () => {
@@ -89,10 +84,10 @@ class StateContainer extends Component<{}, StateSchema> {
             details: {},
             logged: false,
             playerState: '',
-            party: {},
-            grid: {},
             socket: StateContainer.socket
         },
+        party: {},
+        grid: {},
         actions: {
             login: this.login,
             checkUserLogged: this.checkUserLogged,

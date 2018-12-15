@@ -1,5 +1,3 @@
-import React, { Component } from "react";
-
 interface IApi {
     getAllUsers(): Promise<object>
     subscribe(mail: string, mdp: string): Promise<object>
@@ -11,10 +9,6 @@ export const Api: IApi =
         const res = await fetch('http://localhost:8000/api/users/all')
         return res.json()
     },
-
-
-
-
     async subscribe(mail, mdp) {
         const user = { user: { "email": mail, "password": mdp } }
         const res = await fetch('http://localhost:8000/api/users', {

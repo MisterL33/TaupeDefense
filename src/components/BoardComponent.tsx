@@ -7,7 +7,7 @@ import taupe from "../pictures/taupe.png";
 import trou from "../pictures/trou.png";
 import openSocket from 'socket.io-client';
 import RoomComponent from "./RoomComponent";
-import { StateConsumer, StateContext } from '../Context/Provider';
+import { StateConsumer, StateContext } from '../context/Provider';
 
 
 class BoardComponent extends Component {
@@ -26,8 +26,8 @@ class BoardComponent extends Component {
         let x = cell.x
         let y = cell.y
         let status = null
-        let w = this.context.player.grid.params.columns
-        let h = this.context.player.grid.params.lines
+        let w = this.context.grid.params.columns
+        let h = this.context.grid.params.lines
 
         switch (cell.status) {
             case 0: status = 'cell--void'
@@ -64,10 +64,10 @@ class BoardComponent extends Component {
         return (
             <>
                 <div className="board">
-                    {this.context.player.grid.cells && Object.keys(this.context.player.grid.cells).map((cell: any) => {
+                    {this.context.grid.cells && Object.keys(this.context.grid.cells).map((cell: any) => {
                         return (
                             <>
-                                {this.cellCalculator(this.context.player.grid.cells[cell])}
+                                {this.cellCalculator(this.context.grid.cells[cell])}
                             </>
                         )
                     })}

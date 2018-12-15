@@ -1,4 +1,4 @@
-import { ScoreUserSchema } from "../scorePlayer"
+import { ScoreUserSchema } from "../ScorePlayer"
 import React, { Component } from "react";
 import PlayerItem from "./PlayerItem"
 export default function PlayerList(props: any) {
