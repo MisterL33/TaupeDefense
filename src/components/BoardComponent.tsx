@@ -18,6 +18,14 @@ class BoardComponent extends Component {
         this.context.player.socket.on('grid', (data: any) => {
             this.context.actions.updateGrid(data.grid)
         })
+
+        this.context.player.socket.on('TaupeHit', (data: any) => {
+            //console.log(data)
+        })
+
+        this.context.player.socket.on('hammers', (data: any) => {
+            this.context.actions.updateAllMouse(data)
+        })
     }
 
 
@@ -59,6 +67,13 @@ class BoardComponent extends Component {
         this.context.player.socket.emit('hit', x, y)
     }
 
+    handleMouseMove = (event: any) => {
+
+        setTimeout(() => {
+            this.context.actions.updateMouseCoord(event.screenX, event.screenY)
+        }, 100);
+
+    }
 
     render() {
         return (
@@ -71,6 +86,11 @@ class BoardComponent extends Component {
                             </>
                         )
                     })}
+
+                    {this.context.player.allMouse && Object.keys(this.context.player.allMouse).map((mouse: any) => {
+                        <img src={hammer} height='200' />
+                    })}
+
                 </div>
             </>
         )

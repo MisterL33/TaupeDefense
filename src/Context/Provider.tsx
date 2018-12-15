@@ -21,7 +21,9 @@ interface StateSchema {
         updatePlayerState: (state: string) => void,
         updateParty: (party: object) => void,
         updateGrid: (grid: object) => void,
-        logout: () => void
+        updateMouseCoord: (x: number, y: number) => void,
+        updateAllMouse: (allMouse: object) => void,
+        logout: () => void,
     }
 }
 
@@ -75,6 +77,21 @@ class StateContainer extends Component<{}, StateSchema> {
         this.setState({ grid })
     }
 
+    updateMouseCoord = (x: number, y: number) => {
+        let player = this.state.player
+        player.x = x
+        player.y = y
+        this.setState({ player }, () => {
+            this.state.player.socket.emit('mouse', x, y)
+        })
+    }
+
+    updateAllMouse = (allMouse: object) => {
+        let player = this.state.player
+        player.allMouse = allMouse
+        this.setState({ player })
+    }
+
     logout = () => {
         localStorage.clear()
     }
@@ -94,6 +111,8 @@ class StateContainer extends Component<{}, StateSchema> {
             updatePlayerState: this.updatePlayerState,
             updateParty: this.updateParty,
             updateGrid: this.updateGrid,
+            updateMouseCoord: this.updateMouseCoord,
+            updateAllMouse: this.updateAllMouse,
             logout: this.logout
         }
     }
