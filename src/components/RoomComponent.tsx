@@ -53,7 +53,7 @@ class RoomComponent extends Component {
     render() {
         return (
             <>
-                <ul className="roomContent">
+                <ul className="roomContent valign-wrapper">
                     {this.context.party.status !== 'await' ?
                         (
                             <div>

@@ -3,7 +3,8 @@ import "../styles/App.css";
 import "../styles/board.css";
 var FA = require("react-fontawesome");
 import { StateContext } from '../Context/Provider';
-
+import massue from '../pictures/massue.png';
+import { findDOMNode } from 'react-dom'
 
 class BoardComponent extends Component {
 
@@ -23,6 +24,19 @@ class BoardComponent extends Component {
             this.context.actions.updateAllMouse(data)
         })
     }
+
+    showHammers = (hammer: any) => {
+        let x = hammer.x
+        let y = hammer.y
+        let w = this.context.grid.params.columns
+        let h = this.context.grid.params.lines
+
+        let left: number = y / w * 100
+        let top: number = x / h * 100
+        left += 10;
+        return <img style={{ position: 'absolute', left: left + '%', top: top + '%' }} src={massue} height={50} />
+    }
+
 
 
     cellCalculator = (cell: any) => {
@@ -64,21 +78,30 @@ class BoardComponent extends Component {
     }
 
     handleMouseMove = (event: any) => {
-
+        console.log(event.target.id)
+        let coord = event.target.id.split("-")
+        let x = coord[0]
+        let y = coord[1]
         setTimeout(() => {
-            this.context.actions.updateMouseCoord(event.screenX, event.screenY)
+            this.context.actions.updateMouseCoord(x, y)
         }, 100);
-
     }
 
     render() {
         return (
             <>
-                <div className="board">
+                <div onMouseMove={() => this.handleMouseMove(event)} className="board">
                     {this.context.grid.cells && Object.keys(this.context.grid.cells).map((cell: any) => {
                         return (
                             <>
                                 {this.cellCalculator(this.context.grid.cells[cell])}
+                            </>
+                        )
+                    })}
+                    {this.context.allMouse && Object.keys(this.context.allMouse).map((mouse: any) => {
+                        return (
+                            <>
+                                {this.showHammers(this.context.allMouse[mouse])}
                             </>
                         )
                     })}

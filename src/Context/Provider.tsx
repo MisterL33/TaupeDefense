@@ -24,7 +24,7 @@ interface StateSchema {
         updatePlayerState: (state: string) => void,
         updateParty: (party: object) => void,
         updateGrid: (grid: object) => void,
-        updateMouseCoord: (x: number, y: number) => void,
+        updateMouseCoord: (x: number, y: number, boardWidth: number, boardHeight: number) => void,
         updateAllMouse: (allMouse: object) => void,
         logout: () => void,
     }

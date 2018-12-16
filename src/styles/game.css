@@ -6,6 +6,12 @@
   padding: unset;
   background-color: darkolivegreen;
   text-align: center;
+  height: 100%;
+  margin: 0;
+}
+
+.roomContent > div {
+  width: 100%;
 }
 
 .gameBtn
@@ -14,6 +20,12 @@
     width: 40%;
     height: 50px;
 
+}
+
+.gameContainer p {
+  font-family: 'ZCOOL QingKe HuangYou', cursive;
+  font-size: 30px;
+  color: white;
 }
 
 .gameContainer{
