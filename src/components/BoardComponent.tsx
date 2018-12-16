@@ -23,6 +23,7 @@ class BoardComponent extends Component {
         this.context.player.socket.on('hammers', (data: any) => {
             this.context.actions.updateAllMouse(data)
         })
+
     }
 
     showHammers = (hammer: any) => {
@@ -34,7 +35,9 @@ class BoardComponent extends Component {
         let left: number = y / w * 100
         let top: number = x / h * 100
         left += 10;
-        return <img style={{ position: 'absolute', left: left + '%', top: top + '%' }} src={massue} height={50} />
+        let width: number = 100 / w
+        let height: number = 100 / h
+        return <img style={{ position: 'absolute', left: left + '%', top: top + '%' }} src={massue} height={height} width={width} />
     }
 
 
