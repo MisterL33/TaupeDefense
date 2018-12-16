@@ -21,89 +21,12 @@ body {
   height: 100%;
 }
 
-
-
-
 .routerContainer {
   height: 100%;
 }
 
-.containerPrincipal{
-  margin-top:113px;
-  height:90%;
-  text-align: center;
-}
 
-.gameContainer{
-  height: 100%;
-  width: 60%;
-  border: 4px solid #996633;
-  background-color: burlywood;
-  margin: auto;
-}
 
-.menuContainer{
-  display: inline-block;
-  float: left;
-  position: relative;
-  width: 20%;
-}
 
-.taupeContainer{
-  height: 80%;
-  list-style: none;
-  top: 3%;
-  position: relative;
-  padding: unset;;
-  list-style: none;
-  top: 3%;
-  position: relative;
-  padding: unset;
-  border: 2px solid black;
-}
 
-.gameContainer > div{
-  height: 100%;
-  text-align: center;
-      
-}
-
-.gameContainer > div > div{
-  height: 100%;
-  text-align: center;
-      
-}
-
-.roomContainer
-{
-  height: 100%;
-  list-style: none;
-  top: 0;
-  position: relative;
-  padding: unset;
-  background-color: burlywood;
-  text-align: center;
-}
-
-.taupeContainer p {
-  text-align: center;
-}
-
-.rowTaupe{
-  height: 17%;
-}
-.taupeSorti{
-  height: 80px;
-}
-
-.taupeBoxContainer{
-  list-style: none;
-  display: flex;
-  padding: unset;
-}
-
-.taupeBoxContainer li {
-  display: block;
-  margin: 0 auto;
-}
 

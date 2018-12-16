@@ -53,14 +53,14 @@ class RoomComponent extends Component {
     render() {
         return (
             <>
-                <ul className="roomContainer">
+                <ul className="roomContent">
                     {this.context.party.status !== 'await' ?
                         (
                             <div>
                                 <p> Bienvenue sur TaupeDefense </p>
                                 <p> Veuillez cliquez pour jouer : </p>
                                 <div>
-                                    <button onClick={() => this.handlePlayerAwait()} className="btn-gradient cyan small">Jouer</button>
+                                    <button className={'waves-effect waves-light btn gameBtn'} onClick={() => this.handlePlayerAwait()} >Jouer</button>
                                 </div>
                             </div>
                         )
@@ -70,7 +70,7 @@ class RoomComponent extends Component {
                                 <p> Recherche de partie en cours :  </p>
                                 <p> Nombre de joueurs dans la salle  :  {this.context.party.players && Object.keys(this.context.party.players).length} </p>
                                 <div>
-                                    <button onClick={() => this.handlePlayerReady()} className="btn-gradient cyan small">Pret</button>
+                                    <button className={'waves-effect waves-light btn gameBtn'} onClick={() => this.handlePlayerReady()} >Pret</button>
                                 </div>
                             </div>
                         )

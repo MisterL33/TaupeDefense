@@ -4,6 +4,7 @@ import { LogApp } from "../components/LogIn"
 import { SubscribeApp } from "../components/Subscribe";
 import "../styles/App.css";
 import "../styles/header.css";
+import "../styles/game.css";
 import "../styles/board.css";
 import "../styles/background.css";
 import "../styles/menu.css";

@@ -83,9 +83,6 @@ class BoardComponent extends Component {
                         )
                     })}
 
-                    {this.context.player.allMouse && Object.keys(this.context.player.allMouse).map((mouse: any) => {
-                        <img src={hammer} height='200' />
-                    })}
 
                 </div>
             </>

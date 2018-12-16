@@ -8,13 +8,16 @@ export interface PlayerSchema {
     details: any
     logged: boolean,
     playerState: string,
+    mousePosX: null | number,
+    mousePosY: null | number,
     socket: any
 }
 
 interface StateSchema {
     player: PlayerSchema
     grid: object,
-    party: object
+    party: object,
+    allMouse: Object,
     actions: {
         login: (mail: string, mdp: string) => void,
         checkUserLogged: () => boolean,
@@ -79,17 +82,15 @@ class StateContainer extends Component<{}, StateSchema> {
 
     updateMouseCoord = (x: number, y: number) => {
         let player = this.state.player
-        player.x = x
-        player.y = y
+        player.mousePosX = x
+        player.mousePosY = y
         this.setState({ player }, () => {
             this.state.player.socket.emit('mouse', x, y)
         })
     }
 
     updateAllMouse = (allMouse: object) => {
-        let player = this.state.player
-        player.allMouse = allMouse
-        this.setState({ player })
+        this.setState({ allMouse })
     }
 
     logout = () => {
@@ -101,10 +102,13 @@ class StateContainer extends Component<{}, StateSchema> {
             details: {},
             logged: false,
             playerState: '',
+            mousePosX: null,
+            mousePosY: null,
             socket: StateContainer.socket
         },
         party: {},
         grid: {},
+        allMouse: {},
         actions: {
             login: this.login,
             checkUserLogged: this.checkUserLogged,

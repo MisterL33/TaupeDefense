@@ -14,3 +14,11 @@
   background-position: center center;
   margin: 0 20px;
 }
+
+.menuContainer{
+  display: inline-block;
+  float: left;
+  position: relative;
+  width: 20%;
+}
+
