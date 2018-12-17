@@ -26,6 +26,7 @@ interface StateSchema {
         updateGrid: (grid: object) => void,
         updateMouseCoord: (x: number, y: number, boardWidth: number, boardHeight: number) => void,
         updateAllMouse: (allMouse: object) => void,
+        getActualUser: () => object,
         logout: () => void,
     }
 }
@@ -64,6 +65,12 @@ class StateContainer extends Component<{}, StateSchema> {
         } else {
             return false
         }
+    }
+
+    getActualUser = () => {
+        let player = this.state.player
+        player.details = JSON.parse(localStorage.getItem('player'))
+        return player.details
     }
 
     updatePlayerState = (state: string) => {
@@ -117,6 +124,7 @@ class StateContainer extends Component<{}, StateSchema> {
             updateGrid: this.updateGrid,
             updateMouseCoord: this.updateMouseCoord,
             updateAllMouse: this.updateAllMouse,
+            getActualUser: this.getActualUser,
             logout: this.logout
         }
     }

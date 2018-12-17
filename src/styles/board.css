@@ -36,3 +36,13 @@
         background: url('../pictures/taupe-ecrase.png') center no-repeat;
         background-size: 85%
     }
+
+    .playerHammer{
+        transition: all 0.5s linear;
+    }
+
+
+
+    .caption {
+    display: block;
+    }

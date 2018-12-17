@@ -10,6 +10,14 @@ class BoardComponent extends Component {
 
     static contextType = StateContext;
 
+    state = {
+        player: {
+            details: {
+                email: ''
+            }
+        }
+    }
+
     componentDidMount() {
         console.log(this.context.player)
         this.context.player.socket.on('grid', (data: any) => {
@@ -24,6 +32,10 @@ class BoardComponent extends Component {
             this.context.actions.updateAllMouse(data)
         })
 
+
+        let player = this.context.actions.getActualUser()
+        this.setState({ player: player })
+
     }
 
     showHammers = (hammer: any) => {
@@ -31,13 +43,14 @@ class BoardComponent extends Component {
         let y = hammer.y
         let w = this.context.grid.params.columns
         let h = this.context.grid.params.lines
-
         let left: number = y / w * 100
         let top: number = x / h * 100
         left += 10;
-        let width: number = 100 / w
-        let height: number = 100 / h
-        return <img style={{ position: 'absolute', left: left + '%', top: top + '%' }} src={massue} height={height} width={width} />
+        let width: number = 40 / w
+        let height: number = 40 / h
+
+        return <img className={'playerHammer'} style={{ position: 'absolute', left: left + '%', top: top + '%', height: height + '%', width: width + '%' }} src={massue} />
+
     }
 
 
