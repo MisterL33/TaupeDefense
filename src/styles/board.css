@@ -37,8 +37,19 @@
         background-size: 85%
     }
 
-    .playerHammer{
+    #hammerContainer{
         transition: all 0.5s linear;
+    }
+
+    .scoreTextEffect {
+        opacity: 1;
+        transition: opacity .1.2s ease-in-out;
+        -moz-transition: opacity .1.2s ease-in-out;
+        -webkit-transition: opacity .1.2s ease-in-out;
+    }
+
+    .fade {
+        opacity: 0.5;
     }
 
 

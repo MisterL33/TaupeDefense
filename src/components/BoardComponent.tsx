@@ -6,6 +6,7 @@ import { StateContext } from '../Context/Provider';
 import massue from '../pictures/massue.png';
 import { findDOMNode } from 'react-dom'
 
+
 class BoardComponent extends Component {
 
     static contextType = StateContext;
@@ -22,10 +23,12 @@ class BoardComponent extends Component {
         console.log(this.context.player)
         this.context.player.socket.on('grid', (data: any) => {
             this.context.actions.updateGrid(data.grid)
+            this.context.actions.updateWave(data.wave)
+
         })
 
         this.context.player.socket.on('TaupeHit', (data: any) => {
-            //console.log(data)
+            this.handleScorePrint()
         })
 
         this.context.player.socket.on('hammers', (data: any) => {
@@ -38,6 +41,35 @@ class BoardComponent extends Component {
 
     }
 
+    handleScorePrint = () => { // Permet d'afficher le score a chaque Hit d'une taupe
+        let hammerContainer = document.getElementById('hammerContainer')
+        let scoreText = document.createElement("p")
+        let randomId = Math.floor(Math.random() * (+9999 - +1)) + 1
+        let board = document.getElementsByClassName('board')
+
+        scoreText.style.position = 'absolute'
+
+        if (hammerContainer) {
+            scoreText.style.left = hammerContainer.style.left
+            scoreText.style.top = hammerContainer.style.top
+            scoreText.style.width = hammerContainer.style.width
+            scoreText.style.height = hammerContainer.style.height
+            scoreText.id = 'scoreText' + randomId
+            scoreText.className = 'scoreTextEffect'
+            scoreText.innerText = '+10'
+        }
+
+        board[0].appendChild(scoreText)
+        setTimeout(() => { // je met une première transition css avec ce premier setTimeout
+            let scoreToDelete: null | any = document.getElementById('scoreText' + randomId);
+            scoreToDelete.className += ' fade'
+            setTimeout(() => { // puis un deuxieme pour supprimer l'element et ainsi éviter la surcharge du DOM
+                scoreToDelete.parentNode.removeChild(scoreToDelete);
+            }, 500)
+        }, 500)
+    }
+
+
     showHammers = (hammer: any) => {
         let x = hammer.x
         let y = hammer.y
@@ -49,7 +81,11 @@ class BoardComponent extends Component {
         let width: number = 40 / w
         let height: number = 40 / h
 
-        return <img className={'playerHammer'} style={{ position: 'absolute', left: left + '%', top: top + '%', height: height + '%', width: width + '%' }} src={massue} />
+        return <div id="hammerContainer" style={{ position: 'absolute', left: left + '%', top: top + '%', height: height + '%', width: width + '%' }}>
+            <img className={'playerHammer'} style={{ height: '100%', width: '100%' }} src={massue} />
+
+        </div>
+
 
     }
 

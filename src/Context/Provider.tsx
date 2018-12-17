@@ -18,6 +18,7 @@ interface StateSchema {
     grid: object,
     party: object,
     allMouse: Object,
+    wave: number,
     actions: {
         login: (mail: string, mdp: string) => void,
         checkUserLogged: () => boolean,
@@ -27,6 +28,7 @@ interface StateSchema {
         updateMouseCoord: (x: number, y: number, boardWidth: number, boardHeight: number) => void,
         updateAllMouse: (allMouse: object) => void,
         getActualUser: () => object,
+        updateWave: (wave: number) => void,
         logout: () => void,
     }
 }
@@ -100,6 +102,10 @@ class StateContainer extends Component<{}, StateSchema> {
         this.setState({ allMouse })
     }
 
+    updateWave = (wave: number) => {
+        this.setState({ wave })
+    }
+
     logout = () => {
         localStorage.clear()
     }
@@ -116,6 +122,7 @@ class StateContainer extends Component<{}, StateSchema> {
         party: {},
         grid: {},
         allMouse: {},
+        wave: 1,
         actions: {
             login: this.login,
             checkUserLogged: this.checkUserLogged,
@@ -125,6 +132,7 @@ class StateContainer extends Component<{}, StateSchema> {
             updateMouseCoord: this.updateMouseCoord,
             updateAllMouse: this.updateAllMouse,
             getActualUser: this.getActualUser,
+            updateWave: this.updateWave,
             logout: this.logout
         }
     }

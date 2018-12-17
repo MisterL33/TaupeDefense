@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom
 import PlayerList from "./ScorePlayer/PlayerList"
 const rgxPourcent = /\d+/
 
+import { StateContext } from '../Context/Provider';
 export interface ScoreUserSchema {
     name: string
     score: number
@@ -16,6 +17,9 @@ interface ScoreSchema {
 }
 
 export default class ScoreApp extends React.Component<{}, ScoreSchema> {
+
+    static contextType = StateContext;
+
     constructor(props: any) {
         super(props)
         this.state = {
@@ -49,6 +53,7 @@ export default class ScoreApp extends React.Component<{}, ScoreSchema> {
         return (
             <div className="menuContainer">
                 <PlayerList state={this.state.user} />
+                <p>Vague : {this.context.wave} </p>
             </div>
         )
     }
