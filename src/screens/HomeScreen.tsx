@@ -8,6 +8,8 @@ import "../styles/game.css";
 import "../styles/board.css";
 import "../styles/background.css";
 import "../styles/menu.css";
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
+import { StateContext } from '../Context/Provider';
 
 class Home extends React.Component {
   render() {
@@ -17,7 +19,6 @@ class Home extends React.Component {
           <LogApp />
         </div>
         <SubscribeApp />
-        {/* Créer un composant de formulaire de connexion et l'importer ici */}
       </div >
     );
   }

@@ -28,8 +28,7 @@ interface StateSchema {
         updateMouseCoord: (x: number, y: number, boardWidth: number, boardHeight: number) => void,
         updateAllMouse: (allMouse: object) => void,
         getActualUser: () => object,
-        updateWave: (wave: number) => void,
-        logout: () => void,
+        updateWave: (wave: number) => void
     }
 }
 
@@ -62,9 +61,14 @@ class StateContainer extends Component<{}, StateSchema> {
 
     checkUserLogged = () => {
         let userSession = localStorage.getItem('player')
+        const player = this.state.player
         if (userSession !== null) {
+            player.logged = true
+            this.setState({ player })
             return true
         } else {
+            player.logged = true
+            this.setState({ player })
             return false
         }
     }
@@ -106,10 +110,6 @@ class StateContainer extends Component<{}, StateSchema> {
         this.setState({ wave })
     }
 
-    logout = () => {
-        localStorage.clear()
-    }
-
     state: StateSchema = {
         player: {
             details: {},
@@ -132,8 +132,7 @@ class StateContainer extends Component<{}, StateSchema> {
             updateMouseCoord: this.updateMouseCoord,
             updateAllMouse: this.updateAllMouse,
             getActualUser: this.getActualUser,
-            updateWave: this.updateWave,
-            logout: this.logout
+            updateWave: this.updateWave
         }
     }
 

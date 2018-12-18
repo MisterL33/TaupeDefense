@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 var FA = require("react-fontawesome");
-
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import { StateContext } from '../Context/Provider';
 
 class RoomComponent extends Component {
@@ -20,19 +20,14 @@ class RoomComponent extends Component {
         }
     }
 
-    componentDidMount() {
-        let player = localStorage.getItem('player') // récuperation du joueur connecté
-        this.setState({ player: player })
-    }
+
 
     handlePlayerAwait = () => {
         let user: any = localStorage.getItem('player')
         user = JSON.parse(user)
         user = user.details._id
-        console.log(user)
         this.context.player.socket.emit('awaitParty', user);
         this.context.player.socket.on('party', (data: any) => {
-            console.log(data)
             this.context.actions.updateParty(data)
         });
     }
@@ -40,9 +35,8 @@ class RoomComponent extends Component {
     handlePlayerReady = () => {
         this.context.player.socket.emit('playerReady', this.context.party);
         this.context.player.socket.on('party', (data: any) => {
-            let emptyGrid = Object.keys(this.context.party.grid).length === 0
+            const emptyGrid = Object.keys(this.context.party.grid).length === 0
             if (emptyGrid === false) {
-                console.log(data)
                 this.context.actions.updateParty(this.context.party)
                 this.context.actions.updatePlayerState(this.context.party.status)
             }
@@ -51,6 +45,10 @@ class RoomComponent extends Component {
 
 
     render() {
+        console.log(localStorage.getItem('player'))
+        if (!localStorage.getItem('player')) {
+            return <Redirect to="/" />
+        }
         return (
             <>
                 <ul className="roomContent valign-wrapper">
