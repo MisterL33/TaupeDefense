@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import { Api } from "../api/apiManager";
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import { StateConsumer, StateContext } from '../Context/Provider';
+import StyledButtonLarge from "./StyledElements/StyledButtonLarge"
+import StyledButtonSmall from "./StyledElements/StyledButtonSmall"
+import StyleTextLink from "./StyledElements/StyledtextLink"
+import StyledTextInput from "./StyledElements/StyledTextInput"
+import StyledTextPassword from "./StyledElements/StyledTextPassword"
+const rgxEmail: RegExp = /\w{1,}\@\w*\.\w{2,3}/
 
 interface LoginSchema {
     mail: string
@@ -39,6 +45,22 @@ export class LogApp extends React.Component {
         })
 
     }
+    handleSubscribe = () => {
+        if (rgxEmail.test(this.state.mail)
+            && this.state.mdp.length > 3) {
+            Api.subscribe(this.state.mail, this.state.mdp)
+                .then((resp: any) => {
+                    console.log(resp)
+                    return resp
+                })
+            this.setState({ isValid: true })
+        }
+        else {
+            alert("le mail doit avoir cette forme : (1 lettre ou 1 chiffre)@(quelque chose).(2-3 lettres ou chiffres)")
+        }
+    }
+
+
 
     render() {
         if (this.context.actions.checkUserLogged() === true) {
@@ -47,12 +69,31 @@ export class LogApp extends React.Component {
 
         return (
             <div>
-                <label>
-                    <input type="text" placeholder="Email" value={this.state.mail} onChange={this.handleChangeUserName} />
-                    <input type="password" placeholder="mdp" value={this.state.mdp} onChange={this.handleChangePassword} />
-                </label>
-                <button onClick={() => this.handleSubmit(this.state.mail, this.state.mdp)} />
-            </div >
+                <StyledTextInput placeholder="Login" onChange={this.handleChangeUserName} />
+                <StyledTextInput placeholder="Password" onChange={this.handleChangePassword} />
+
+
+                <StateConsumer>
+                    {(context) => (
+                        <React.Fragment>
+                            <StyledButtonLarge text="Se Connecter" clickEvent={() => context.actions.login(this.state.mail, this.state.mdp)} />
+                            <StyleTextLink clickEvent={() => context.actions.subscribe(this.state.mail, this.state.mdp)} text="creer un compte" />
+                            <StyledButtonLarge text="Jouer en Invité" />
+                            <div style={{ display: "flex", width: "100%" }}>
+                                <StyledButtonSmall text="Facebook" />
+                                <StyledButtonSmall text="Google" />
+                            </div>
+                        </React.Fragment>
+                    )}
+                </StateConsumer>
+            </div>
+            // <div>
+            //     <label>
+            //         <input type="text" placeholder="Email" value={this.state.mail} onChange={this.handleChangeUserName} />
+            //         <input type="password" placeholder="mdp" value={this.state.mdp} onChange={this.handleChangePassword} />
+            //     </label>
+            //     <button onClick={() => this.handleSubmit(this.state.mail, this.state.mdp)} />
+            // </div >
         );
     }
 }
