@@ -20,6 +20,7 @@ interface StateSchema {
     allMouse: Object,
     actions: {
         login: (mail: string, mdp: string) => void,
+        subscribe: (mail: string, mdp: string) => void,
         checkUserLogged: () => boolean,
         updatePlayerState: (state: string) => void,
         updateParty: (party: object) => void,
@@ -56,6 +57,18 @@ class StateContainer extends Component<{}, StateSchema> {
 
         return this.state.player
     }
+    subscribe = async (mail: string, mdp: string) => {
+        const user = { user: { "email": mail, "password": mdp } }
+        const res = await fetch('http://localhost:8000/api/users', {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(user)
+        })
+        return res.json()
+    }
+
 
     checkUserLogged = () => {
         let userSession = localStorage.getItem('player')
@@ -111,6 +124,7 @@ class StateContainer extends Component<{}, StateSchema> {
         allMouse: {},
         actions: {
             login: this.login,
+            subscribe: this.subscribe,
             checkUserLogged: this.checkUserLogged,
             updatePlayerState: this.updatePlayerState,
             updateParty: this.updateParty,
