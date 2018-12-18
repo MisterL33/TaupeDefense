@@ -12,8 +12,8 @@ const AppRouter = () => (
     <div className="routerContainer">
       <Header />
 
-      <Route path="/" exact component={Home} />
-      <Route path="/game/" component={Game} />
+      <Route props={history} path="/" exact component={Home} />
+      <Route prop={history} path="/game/" component={Game} />
     </div>
   </Router>
 );

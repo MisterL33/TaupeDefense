@@ -16,7 +16,7 @@ interface LoginSchema {
     logged: boolean
 }
 
-export class LogApp extends React.Component {
+export class LogApp extends React.Component<any> {
     static contextType = StateContext;
 
     state: LoginSchema = {
@@ -41,7 +41,7 @@ export class LogApp extends React.Component {
     handleSubmit = (mail: string, mdp: string) => {
 
         this.context.actions.login(mail, mdp).then((res: any) => {
-            console.log(res)
+            this.props.history.push('/game')
         })
 
     }
@@ -63,9 +63,7 @@ export class LogApp extends React.Component {
 
 
     render() {
-        if (this.context.actions.checkUserLogged() === true) {
-            return <Redirect to='/game' />
-        }
+
 
         return (
             <div>
@@ -76,7 +74,7 @@ export class LogApp extends React.Component {
                 <StateConsumer>
                     {(context) => (
                         <React.Fragment>
-                            <StyledButtonLarge text="Se Connecter" clickEvent={() => context.actions.login(this.state.mail, this.state.mdp)} />
+                            <StyledButtonLarge text="Se Connecter" clickEvent={() => this.handleSubmit(this.state.mail, this.state.mdp)} />
                             <StyleTextLink clickEvent={() => context.actions.subscribe(this.state.mail, this.state.mdp)} text="creer un compte" />
                             <StyledButtonLarge text="Jouer en Invité" />
                             <div style={{ display: "flex", width: "100%" }}>

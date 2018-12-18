@@ -11,12 +11,18 @@ import "../styles/menu.css";
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import { StateContext } from '../Context/Provider';
 
-class Home extends React.Component {
+class Home extends React.Component<any> {
+  constructor(props: any) {
+    super(props)
+  }
+
+
   render() {
+
     return (
       <div className="backgroundImageContainer" >
         <div className="loginContainer" >
-          <LogApp />
+          <LogApp history={this.props.history} />
         </div>
         <SubscribeApp />
       </div >

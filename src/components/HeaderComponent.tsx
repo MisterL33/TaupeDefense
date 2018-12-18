@@ -8,11 +8,17 @@ import logo from "../pictures/logo.png";
 import account from "../pictures/taupe.png";
 import { StateConsumer, StateContext } from '../Context/Provider';
 
-
 class HeaderComponent extends Component {
     static contextType = StateContext;
 
+    constructor(props: any) {
+        super(props)
+
+    }
+
     componentDidMount() {
+        let elems = document.querySelectorAll('.dropdown-trigger');
+        M.Dropdown.init(elems, { inDuration: 500, outDuration: 225 });
     }
 
     render() {
