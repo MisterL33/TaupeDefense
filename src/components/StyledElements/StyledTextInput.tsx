@@ -49,7 +49,7 @@ interface InputSchema {
     placeholder: string,
     value: string
 }
-class StyledTextInput extends React.Component<InputSchema & { classes: any }> {
+class StyledTextInput extends React.Component<InputSchema & { classes: any } & any> {
     state = {
         text: ""
     }
@@ -57,7 +57,11 @@ class StyledTextInput extends React.Component<InputSchema & { classes: any }> {
         super(props)
     }
     handleText = (event: any) => {
-        this.setState({ text: event.target.value });
+        if (this.props.placeholder === 'Login') {
+            this.props.handleChangeUsername(event)
+        } else {
+            this.props.handleChangePassword(event)
+        }
     }
     render() {
         const { classes } = this.props

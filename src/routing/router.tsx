@@ -6,14 +6,14 @@ import Header from "../components/HeaderComponent";
 import "../styles/App.css";
 var FA = require("react-fontawesome");
 
-
+import { StateConsumer, StateContext } from '../Context/Provider';
 const AppRouter = () => (
+
   <Router>
     <div className="routerContainer">
       <Header />
-
       <Route props={history} path="/" exact component={Home} />
-      <Route prop={history} path="/game/" component={Game} />
+      <Route props={history} path="/game/" component={Game} />
     </div>
   </Router>
 );

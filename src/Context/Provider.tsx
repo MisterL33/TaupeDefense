@@ -19,6 +19,9 @@ interface StateSchema {
     party: object,
     allMouse: Object,
     wave: number,
+    mail: string | null,
+    mdp: string | null,
+    history: any
     actions: {
         login: (mail: string, mdp: string) => void,
         subscribe: (mail: string, mdp: string) => void,
@@ -29,7 +32,9 @@ interface StateSchema {
         updateMouseCoord: (x: number, y: number, boardWidth: number, boardHeight: number) => void,
         updateAllMouse: (allMouse: object) => void,
         getActualUser: () => object,
-        updateWave: (wave: number) => void
+        updateWave: (wave: number) => void,
+        setHistory: (history: any) => void,
+        updateHistory: (path: string) => void
     }
 }
 
@@ -41,6 +46,7 @@ class StateContainer extends Component<{}, StateSchema> {
 
     login = async (mail: string, mdp: string) => {
         const user = { user: { "email": mail, "password": mdp } }
+        console.log(user)
         let player = this.state.player
         await fetch(apiBasePath + '/api/users/login', {
             method: 'POST',
@@ -61,14 +67,24 @@ class StateContainer extends Component<{}, StateSchema> {
     }
     subscribe = async (mail: string, mdp: string) => {
         const user = { user: { "email": mail, "password": mdp } }
+        console.log(user)
+        let player = this.state.player
         const res = await fetch('http://localhost:8000/api/users', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json'
             }),
             body: JSON.stringify(user)
-        })
-        return res.json()
+        }).then((res) => res.json() // Transformation de la Promise en objet json
+            .then((data) => {
+                player.details = data.user
+                player.logged = true
+                this.setState({ player }, () => {
+                    localStorage.setItem('player', JSON.stringify(player));
+                })
+            }))
+
+        return this.state.player
     }
 
 
@@ -123,6 +139,17 @@ class StateContainer extends Component<{}, StateSchema> {
         this.setState({ wave })
     }
 
+    setHistory = (history: any) => {
+        this.setState({ history })
+    }
+
+    updateHistory = (path: string) => {
+        let history = this.state.history
+        history.push(path) // on push dans l'history ce qui provoque une redirection
+        this.setHistory(history) // on set le nouvel history pour éviter les bugs
+    }
+
+
     state: StateSchema = {
         player: {
             details: {},
@@ -136,6 +163,9 @@ class StateContainer extends Component<{}, StateSchema> {
         grid: {},
         allMouse: {},
         wave: 1,
+        mail: null,
+        mdp: null,
+        history: null,
         actions: {
             login: this.login,
             subscribe: this.subscribe,
@@ -146,7 +176,9 @@ class StateContainer extends Component<{}, StateSchema> {
             updateMouseCoord: this.updateMouseCoord,
             updateAllMouse: this.updateAllMouse,
             getActualUser: this.getActualUser,
-            updateWave: this.updateWave
+            updateWave: this.updateWave,
+            setHistory: this.setHistory,
+            updateHistory: this.updateHistory
         }
     }
 

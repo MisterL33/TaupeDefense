@@ -21,12 +21,17 @@ class HeaderComponent extends Component {
         M.Dropdown.init(elems, { inDuration: 500, outDuration: 225 });
     }
 
+    handleLogout = () => {
+        localStorage.clear()
+        this.context.actions.updateHistory('/')
+    }
+
     render() {
         return (
             <>
                 <ul id="dropdown1" className="dropdown-content">
                     <li><a href="#!">Profil</a></li>
-                    <li><a onClick={this.context.actions.logout}>Déconnexion</a></li>
+                    <li><a onClick={this.handleLogout}>Déconnexion</a></li>
                 </ul>
 
                 <nav>

@@ -45,10 +45,6 @@ class RoomComponent extends Component {
 
 
     render() {
-        console.log(localStorage.getItem('player'))
-        if (!localStorage.getItem('player')) {
-            return <Redirect to="/" />
-        }
         return (
             <>
                 <ul className="roomContent valign-wrapper">

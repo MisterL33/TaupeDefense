@@ -71,11 +71,15 @@ class BoardComponent extends Component {
 
 
     showHammers = (hammer: any) => {
+
+        // infos grille
         const x = hammer.x
         const y = hammer.y
         const w = this.context.grid.params.columns
         const h = this.context.grid.params.lines
-        const left: number = y / w * 100
+
+        //calcul de la taille des taupes en fonction des infos de la grille donnée par le serveur
+        const left: number = y / w * 100 
         const top: number = x / h * 100
         const width: number = 50 / w
         const height: number = 50 / h

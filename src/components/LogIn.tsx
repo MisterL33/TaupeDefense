@@ -10,20 +10,23 @@ import StyledTextPassword from "./StyledElements/StyledTextPassword"
 const rgxEmail: RegExp = /\w{1,}\@\w*\.\w{2,3}/
 
 interface LoginSchema {
-    mail: string
-    mdp: string
-    user: object
-    logged: boolean
+    user: {
+        mail: string
+        mdp: string
+        logged: boolean
+    }
+
 }
 
 export class LogApp extends React.Component<any> {
     static contextType = StateContext;
 
     state: LoginSchema = {
-        mail: '',
-        mdp: '',
-        user: {},
-        logged: false
+        user: {
+            mail: '',
+            mdp: '',
+            logged: false
+        },
     }
 
 
@@ -32,28 +35,30 @@ export class LogApp extends React.Component<any> {
     }
 
     handleChangeUserName = (event: any) => {
-        this.setState({ mail: event.target.value });
+        let user = this.state.user
+        user.mail = event.target.value
+        this.setState({ user });
     }
     handleChangePassword = (event: any) => {
-        this.setState({ mdp: event.target.value });
+        let user = this.state.user
+        user.mdp = event.target.value
+        this.setState({ user });
     }
 
     handleSubmit = (mail: string, mdp: string) => {
 
         this.context.actions.login(mail, mdp).then((res: any) => {
-            this.props.history.push('/game')
+            this.context.actions.updateHistory('/game')
         })
 
     }
-    handleSubscribe = () => {
-        if (rgxEmail.test(this.state.mail)
-            && this.state.mdp.length > 3) {
-            Api.subscribe(this.state.mail, this.state.mdp)
-                .then((resp: any) => {
-                    console.log(resp)
-                    return resp
-                })
-            this.setState({ isValid: true })
+    handleSubscribe = (mail: string, mdp: string) => {
+        let user = this.state.user
+        if (rgxEmail.test(user.mail)
+            && user.mdp.length > 3) {
+            this.context.actions.subscribe(mail, mdp).then((res: any) => {
+                this.context.actions.updateHistory('/game')
+            })
         }
         else {
             alert("le mail doit avoir cette forme : (1 lettre ou 1 chiffre)@(quelque chose).(2-3 lettres ou chiffres)")
@@ -67,15 +72,15 @@ export class LogApp extends React.Component<any> {
 
         return (
             <div>
-                <StyledTextInput placeholder="Login" onChange={this.handleChangeUserName} />
-                <StyledTextInput placeholder="Password" onChange={this.handleChangePassword} />
+                <StyledTextInput props={this.state.user} handleChangeUsername={this.handleChangeUserName} placeholder="Login" />
+                <StyledTextInput props={this.state.user} handleChangePassword={this.handleChangePassword} placeholder="Password" />
 
 
                 <StateConsumer>
                     {(context) => (
                         <React.Fragment>
-                            <StyledButtonLarge text="Se Connecter" clickEvent={() => this.handleSubmit(this.state.mail, this.state.mdp)} />
-                            <StyleTextLink clickEvent={() => context.actions.subscribe(this.state.mail, this.state.mdp)} text="creer un compte" />
+                            <StyledButtonLarge text="Se Connecter" clickEvent={() => this.handleSubmit(this.state.user.mail, this.state.user.mdp)} />
+                            <StyleTextLink clickEvent={() => this.handleSubscribe(this.state.user.mail, this.state.user.mdp)} text="creer un compte" />
                             <StyledButtonLarge text="Jouer en Invité" />
                             <div style={{ display: "flex", width: "100%" }}>
                                 <StyledButtonSmall text="Facebook" />
@@ -85,13 +90,6 @@ export class LogApp extends React.Component<any> {
                     )}
                 </StateConsumer>
             </div>
-            // <div>
-            //     <label>
-            //         <input type="text" placeholder="Email" value={this.state.mail} onChange={this.handleChangeUserName} />
-            //         <input type="password" placeholder="mdp" value={this.state.mdp} onChange={this.handleChangePassword} />
-            //     </label>
-            //     <button onClick={() => this.handleSubmit(this.state.mail, this.state.mdp)} />
-            // </div >
         );
     }
 }

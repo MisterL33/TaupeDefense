@@ -12,17 +12,21 @@ import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom
 import { StateContext } from '../Context/Provider';
 
 class Home extends React.Component<any> {
+  static contextType = StateContext;
   constructor(props: any) {
     super(props)
   }
 
+  componentDidMount() {
+    this.context.actions.setHistory(this.props.history) // on donne l'history au provider pour qu'il puisse gérer les redirections
+  }
 
   render() {
 
     return (
       <div className="backgroundImageContainer" >
         <div className="loginContainer" >
-          <LogApp history={this.props.history} />
+          <LogApp />
         </div>
         <SubscribeApp />
       </div >
