@@ -15,6 +15,9 @@ class HeaderComponent extends Component {
         super(props)
 
     }
+    handleLogout = () => {
+        localStorage.clear()
+    }
 
     componentDidMount() {
         let elems = document.querySelectorAll('.dropdown-trigger');
@@ -31,7 +34,7 @@ class HeaderComponent extends Component {
             <>
                 <ul id="dropdown1" className="dropdown-content">
                     <li><a href="#!">Profil</a></li>
-                    <li><a onClick={this.handleLogout}>Déconnexion</a></li>
+                    <li><a onClick={() => this.handleLogout()}>Déconnexion</a></li>
                 </ul>
 
                 <nav>
