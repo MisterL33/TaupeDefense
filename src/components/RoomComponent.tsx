@@ -20,6 +20,9 @@ class RoomComponent extends Component {
         }
     }
 
+    componentDidMount() {
+        console.log(this.context.player)
+    }
 
 
     handlePlayerAwait = () => {

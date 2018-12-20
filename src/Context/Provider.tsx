@@ -62,7 +62,6 @@ class StateContainer extends Component<{}, StateSchema> {
                     localStorage.setItem('player', JSON.stringify(player));
                 })
             }))
-
         return this.state.player
     }
     subscribe = async (mail: string, mdp: string) => {
@@ -104,8 +103,8 @@ class StateContainer extends Component<{}, StateSchema> {
 
     getActualUser = () => {
         let player = this.state.player
-        player.details = JSON.parse(localStorage.getItem('player'))
-        return player.details
+        player = JSON.parse(localStorage.getItem('player'))
+        return player
     }
 
     updatePlayerState = (state: string) => {
@@ -127,7 +126,7 @@ class StateContainer extends Component<{}, StateSchema> {
         player.mousePosX = x
         player.mousePosY = y
         this.setState({ player }, () => {
-            this.state.player.socket.emit('mouse', x, y)
+            this.state.player.socket.emit('mouse', x, y, player.details._id) // Nous n'avons pas réussi à faire un broadcast sur le serveur et sommes donc obligés pour l'instant d'identier les marteau par l'id du joueurs ...
         })
     }
 
