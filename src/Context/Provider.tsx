@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import openSocket from 'socket.io-client';
 const JSON = require('circular-json');
-const apiBasePath = 'http://0fe38037.ngrok.io'  //'http://localhost:8000'
+const apiBasePath = 'http://localhost:8000'  //'http://0fe38037.ngrok.io'
 export const StateContext = React.createContext<StateSchema>({} as StateSchema)
 
 export interface PlayerSchema {
@@ -31,7 +31,7 @@ interface StateSchema {
         updateGrid: (grid: object) => void,
         updateMouseCoord: (x: number, y: number, boardWidth: number, boardHeight: number) => void,
         updateAllMouse: (allMouse: object) => void,
-        getActualUser: () => object,
+        getActualUser: () => void,
         updateWave: (wave: number) => void,
         setHistory: (history: any) => void,
         updateHistory: (path: string) => void
@@ -102,9 +102,17 @@ class StateContainer extends Component<{}, StateSchema> {
     }
 
     getActualUser = () => {
+        let user = JSON.parse(localStorage.getItem('player'))
         let player = this.state.player
-        player = JSON.parse(localStorage.getItem('player'))
-        return player
+        player.details = user.details
+        player.logged = user.logged
+        this.setState({ player })
+    }
+
+    setUserInContext = (user: object) => {
+        let player = this.state.player
+        player.details = user
+        this.setState({ player })
     }
 
     updatePlayerState = (state: string) => {
@@ -131,6 +139,7 @@ class StateContainer extends Component<{}, StateSchema> {
     }
 
     updateAllMouse = (allMouse: object) => {
+        console.log(allMouse)
         this.setState({ allMouse })
     }
 

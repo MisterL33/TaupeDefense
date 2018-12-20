@@ -20,6 +20,10 @@ class RoomComponent extends Component {
         }
     }
 
+    componentWillMount() {
+        this.context.actions.getActualUser()
+
+    }
     componentDidMount() {
         console.log(this.context.player)
     }

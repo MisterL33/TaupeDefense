@@ -20,6 +20,10 @@ class BoardComponent extends Component {
         }
     }
 
+    componentWillMount() {
+        this.context.actions.getActualUser()
+    }
+
     componentDidMount() {
         this.context.player.socket.on('grid', (data: any) => {
             this.context.actions.updateGrid(data.grid)
@@ -35,18 +39,13 @@ class BoardComponent extends Component {
         this.context.player.socket.on('hammers', (data: any) => {
             this.context.actions.updateAllMouse(data)
         })
-
-
-        let player = this.context.actions.getActualUser()
-        this.setState({ player: player })
-
-
     }
 
     handleScorePrint = (coord: any) => { // Permet d'afficher le score a chaque Hit d'une taupe
 
         const scoreText = document.getElementById('scoreText ' + coord.x + '-' + coord.y)
         if (scoreText) {
+            scoreText.classList.remove('hide')
             scoreText.innerHTML = '+' + coord.score
         }
         setTimeout(() => {

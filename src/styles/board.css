@@ -37,7 +37,7 @@
         background-size: 85%
     }
 
-    #hammerContainer{
+    .hammerContainer{
         transition: all 0.5s linear;
     }
 
