@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import openSocket from 'socket.io-client';
 const JSON = require('circular-json');
-const apiBasePath = 'http://localhost:8000'  //'http://0fe38037.ngrok.io'
+const apiBasePath = 'http://0fe38037.ngrok.io'  //''
 export const StateContext = React.createContext<StateSchema>({} as StateSchema)
 
 export interface PlayerSchema {
@@ -46,7 +46,6 @@ class StateContainer extends Component<{}, StateSchema> {
 
     login = async (mail: string, mdp: string) => {
         const user = { user: { "email": mail, "password": mdp } }
-        console.log(user)
         let player = this.state.player
         await fetch(apiBasePath + '/api/users/login', {
             method: 'POST',
@@ -66,7 +65,6 @@ class StateContainer extends Component<{}, StateSchema> {
     }
     subscribe = async (mail: string, mdp: string) => {
         const user = { user: { "email": mail, "password": mdp } }
-        console.log(user)
         let player = this.state.player
         const res = await fetch(apiBasePath + '/api/users', {
             method: 'POST',
@@ -133,7 +131,6 @@ class StateContainer extends Component<{}, StateSchema> {
     }
 
     updateAllMouse = (allMouse: object) => {
-        console.log(allMouse)
         this.setState({ allMouse })
     }
 

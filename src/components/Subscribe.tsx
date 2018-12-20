@@ -29,7 +29,6 @@ export class SubscribeApp extends React.Component<{}, ISubscribe> {
             && this.state.mdp.length > 3) {
             Api.subscribe(this.state.mail, this.state.mdp)
                 .then((resp: any) => {
-                    console.log(resp)
                     return resp
                 })
             this.setState({ isValid: true })
