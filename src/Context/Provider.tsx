@@ -109,12 +109,6 @@ class StateContainer extends Component<{}, StateSchema> {
         this.setState({ player })
     }
 
-    setUserInContext = (user: object) => {
-        let player = this.state.player
-        player.details = user
-        this.setState({ player })
-    }
-
     updatePlayerState = (state: string) => {
         let player = this.state.player
         player.playerState = state
