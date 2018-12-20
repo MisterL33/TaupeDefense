@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import openSocket from 'socket.io-client';
 const JSON = require('circular-json');
-const apiBasePath = 'http://localhost:8000'  //'http://64dfccf8.ngrok.io'
+const apiBasePath = 'http://0fe38037.ngrok.io'  //'http://localhost:8000'
 export const StateContext = React.createContext<StateSchema>({} as StateSchema)
 
 export interface PlayerSchema {
@@ -68,7 +68,7 @@ class StateContainer extends Component<{}, StateSchema> {
         const user = { user: { "email": mail, "password": mdp } }
         console.log(user)
         let player = this.state.player
-        const res = await fetch('http://localhost:8000/api/users', {
+        const res = await fetch(apiBasePath + '/api/users', {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json'

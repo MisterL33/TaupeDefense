@@ -10,7 +10,7 @@ export interface ScoreUserSchema {
     score: number
     isOn: boolean
     rank: Number
-    img: string
+    avatar: string
 }
 interface ScoreSchema {
     user: ScoreUserSchema[],

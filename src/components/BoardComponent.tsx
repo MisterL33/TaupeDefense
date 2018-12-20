@@ -28,9 +28,8 @@ class BoardComponent extends Component {
         })
 
 
-
         this.context.player.socket.on('TaupeHit', (data: any) => {
-            this.handleScorePrint()
+            this.handleScorePrint(data)
         })
 
         this.context.player.socket.on('hammers', (data: any) => {
@@ -44,36 +43,17 @@ class BoardComponent extends Component {
 
     }
 
-    handleScorePrint = () => { // Permet d'afficher le score a chaque Hit d'une taupe
-        const hammerContainer = document.getElementsByClassName('hammerContainer')
-        const scoreText = document.createElement("p")
-        const randomId = Math.floor(Math.random() * (+9999 - +1)) + 1
-        const board = document.getElementsByClassName('board')
+    handleScorePrint = (coord: any) => { // Permet d'afficher le score a chaque Hit d'une taupe
 
-        scoreText.style.position = 'absolute'
-        var hammers = Array.from(hammerContainer);
-
-        hammers.map((hammer: any) => {
-            scoreText.style.left = hammer.style.left
-            scoreText.style.top = hammer.style.top
-            scoreText.style.width = hammer.style.width
-            scoreText.style.height = hammer.style.height
-            scoreText.id = 'scoreText' + randomId
-            scoreText.className = 'scoreTextEffect'
-            scoreText.innerText = '+10'
-        })
-
-
-
-        board[0].appendChild(scoreText)
-        setTimeout(() => { // je met une première transition css avec ce premier setTimeout
-            const scoreToDelete: null | any = document.getElementById('scoreText' + randomId);
-            if (scoreToDelete) {
-                scoreToDelete.className += ' fade'
-                setTimeout(() => { // puis un deuxieme pour supprimer l'element et ainsi éviter la surcharge du DOM
-                    scoreToDelete.parentNode.removeChild(scoreToDelete);
-                }, 500)
+        const scoreText = document.getElementById('scoreText ' + coord.x + '-' + coord.y)
+        if (scoreText) {
+            scoreText.innerHTML = '+' + coord.score
+        }
+        setTimeout(() => {
+            if (scoreText) {
+                scoreText.className += ' hide'
             }
+
         }, 500)
     }
 
@@ -93,15 +73,11 @@ class BoardComponent extends Component {
         const height: number = 50 / h
 
         let hammerBox = []
-        if (hammer.id == this.context.player.details._id) {
-            hammerBox.push(<div className="hammerContainer" style={{ position: 'absolute', left: left + '%', top: top + '%', height: height + '%', width: width + '%' }}>
-                <img className={'playerHammer hide'} style={{ height: '100%', width: '100%' }} src={massue} />
-            </div>)
-        } else {
-            hammerBox.push(<div className="hammerContainer" style={{ position: 'absolute', left: left + '%', top: top + '%', height: height + '%', width: width + '%' }}>
-                <img className={'playerHammer'} style={{ height: '100%', width: '100%' }} src={massue} />
-            </div>)
-        }
+
+        hammerBox.push(<div className="hammerContainer" style={{ position: 'absolute', left: left + '%', top: top + '%', height: height + '%', width: width + '%' }}>
+            <img className={'playerHammer'} style={{ height: '100%', width: '100%' }} src={massue} />
+        </div>)
+
 
         return hammerBox
 
@@ -138,7 +114,7 @@ class BoardComponent extends Component {
         const top: number = x / h * 100
         const board: JSX.Element[] = [];
 
-        board.push(<div id={x + '-' + y} onClick={(evt) => this.handleCellClick(evt)} className={"cell " + status} style={{ top: top + '%', left: left + '%', width: width + '%', height: height + '%' }}><p className={'scoreText'}></p></div >)
+        board.push(<div id={x + '-' + y} onClick={(evt) => this.handleCellClick(evt)} className={"cell " + status} style={{ top: top + '%', left: left + '%', width: width + '%', height: height + '%' }}><p id={'scoreText ' + x + '-' + y} className="scoreTextEffect"></p></div >)
 
         return board
     }
@@ -173,9 +149,9 @@ class BoardComponent extends Component {
                     {this.context.allMouse && Object.keys(this.context.allMouse).map((mouse: any) => {
                         return (
                             <>
-
-                                {this.showHammers(this.context.allMouse[mouse])}
-                                {/* {this.context.allMouse[mouse].id != this.context.player.details._id && */}
+                                {this.context.allMouse[mouse].id != this.context.player.details._id &&
+                                    this.showHammers(this.context.allMouse[mouse])
+                                }
                             </>
                         )
                     })}
