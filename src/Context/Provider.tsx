@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import openSocket from 'socket.io-client';
 const JSON = require('circular-json');
-const apiBasePath = 'http://0fe38037.ngrok.io'  //''
+const apiBasePath = 'http://localhost'  //'http://621c0801.ngrok.io'
 export const StateContext = React.createContext<StateSchema>({} as StateSchema)
 
 export interface PlayerSchema {

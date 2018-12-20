@@ -28,7 +28,6 @@ class Home extends React.Component<any> {
         <div className="loginContainer" >
           <LogApp />
         </div>
-        <SubscribeApp />
       </div >
     );
   }
